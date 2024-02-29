@@ -1,6 +1,20 @@
+# Used by "mix format"
+wildcard = fn glob -> Path.wildcard(glob, match_dot: true) end
+matches = fn globs -> Enum.flat_map(globs, &wildcard.(&1)) end
+
+except = []
+
+inputs = [
+  "*.{heex,ex,exs}",
+  "priv/*/seeds.exs",
+  "{config,lib,test}/**/*.{heex,ex,exs}"
+]
+
 [
-  import_deps: [:ecto, :ecto_sql, :phoenix],
+  plugins: [TailwindFormatter, Phoenix.LiveView.HTMLFormatter],
+  import_deps: [:ecto, :ecto_sql, :phoenix, :phx_formatter],
+  inputs: matches.(inputs) -- matches.(except),
   subdirectories: ["priv/*/migrations"],
-  plugins: [Phoenix.LiveView.HTMLFormatter],
-  inputs: ["*.{heex,ex,exs}", "{config,lib,test}/**/*.{heex,ex,exs}", "priv/*/seeds.exs"]
+  heex_line_length: 74,
+  line_length: 80
 ]

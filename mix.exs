@@ -54,7 +54,13 @@ defmodule LiveView.Studio.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      # Added dependencies...
+      {:tailwind_formatter, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
+      # {:ex_doc, "~> 0.22", only: :dev, runtime: false},
+      {:log_reset, "~> 0.1"},
+      {:phx_formatter, "~> 0.1", only: :dev, runtime: false}
     ]
   end
 
@@ -68,13 +74,27 @@ defmodule LiveView.Studio.MixProject do
     [
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.reset": [
+        "ecto.drop",
+        ~S"custom.cmd del /Q priv\static\uploads\*.*",
+        "ecto.setup"
+      ],
+      # ┌──────────────────────────────────┐
+      # │ set MIX_ENV=test                 │
+      # │ mix ecto.drop                    │
+      # │ mix ecto.create                  │
+      # │ mix ecto.migrate                 │
+      # │ mix run priv/repo/test_seeds.exs │
+      # └──────────────────────────────────┘
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind live_view_studio", "esbuild live_view_studio"],
+      "assets.setup": [
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing"
+      ],
+      "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": [
-        "tailwind live_view_studio --minify",
-        "esbuild live_view_studio --minify",
+        "tailwind default --minify",
+        "esbuild default --minify",
         "phx.digest"
       ]
     ]
