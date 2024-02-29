@@ -23,9 +23,12 @@ config :live_view_studio, LiveView.StudioWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "5YDC3pJm/etFyaDTrurHCsR70qTmZy6mktDe9MWiemD+X+v15Xj7tAF2di6tSNMr",
+  secret_key_base:
+    "5YDC3pJm/etFyaDTrurHCsR70qTmZy6mktDe9MWiemD+X+v15Xj7tAF2di6tSNMr",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:live_view_studio, ~w(--sourcemap=inline --watch)]},
+    esbuild:
+      {Esbuild, :install_and_run,
+       [:live_view_studio, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:live_view_studio, ~w(--watch)]}
   ]
 

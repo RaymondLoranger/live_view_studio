@@ -10,7 +10,9 @@ defmodule LiveView.Studio.Application do
     children = [
       LiveView.StudioWeb.Telemetry,
       LiveView.Studio.Repo,
-      {DNSCluster, query: Application.get_env(:live_view_studio, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query:
+         Application.get_env(:live_view_studio, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: LiveView.Studio.PubSub},
       # Start a worker by calling: LiveView.Studio.Worker.start_link(arg)
       # {LiveView.Studio.Worker, arg},

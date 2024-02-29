@@ -17,7 +17,8 @@ config :live_view_studio, LiveView.Studio.Repo,
 # you can enable the server option below.
 config :live_view_studio, LiveView.StudioWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "Ku7b0ZSLQ3jczve4KztfK9ND+yS2+NjLI0UawyByX9pNkHR1xdqCv71NlxJcjvpg",
+  secret_key_base:
+    "Ku7b0ZSLQ3jczve4KztfK9ND+yS2+NjLI0UawyByX9pNkHR1xdqCv71NlxJcjvpg",
   server: false
 
 # Print only warnings and errors during test

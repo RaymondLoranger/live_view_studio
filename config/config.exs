@@ -17,7 +17,10 @@ config :live_view_studio, LiveView.StudioWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: LiveView.StudioWeb.ErrorHTML, json: LiveView.StudioWeb.ErrorJSON],
+    formats: [
+      html: LiveView.StudioWeb.ErrorHTML,
+      json: LiveView.StudioWeb.ErrorJSON
+    ],
     layout: false
   ],
   pubsub_server: LiveView.Studio.PubSub,
@@ -44,7 +47,7 @@ config :tailwind,
     ),
     cd: Path.expand("../assets", __DIR__)
   ]
-  
+
 import_config "config_logger.exs"
 
 # Configures Elixir's Logger

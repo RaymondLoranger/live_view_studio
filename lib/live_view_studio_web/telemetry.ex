@@ -58,7 +58,8 @@ defmodule LiveView.StudioWeb.Telemetry do
       ),
       summary("live_view_studio.repo.query.decode_time",
         unit: {:native, :millisecond},
-        description: "The time spent decoding the data received from the database"
+        description:
+          "The time spent decoding the data received from the database"
       ),
       summary("live_view_studio.repo.query.query_time",
         unit: {:native, :millisecond},
