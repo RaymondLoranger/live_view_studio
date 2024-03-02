@@ -108,6 +108,10 @@ defmodule LiveView.StudioWeb do
     quote do
       import Phoenix.Naming, only: [humanize: 1]
       import Number.Currency
+
+      import LiveView.Studio.Vehicles,
+        only: [list_vehicles: 1, vehicles_count: 0]
+
       import Phoenix.HTML.Form, only: [options_for_select: 2]
     end
   end
@@ -115,23 +119,29 @@ defmodule LiveView.StudioWeb do
   def aliases do
     quote do
       alias LiveView.StudioWeb.{
+        BoatsComponents,
         FlightsComponents,
         LightComponents,
+        PerPageForm,
         SalesComponents,
         SalesLive,
         SandboxComponents,
         SandboxFeeForm,
-        SandboxForm
+        SandboxForm,
+        VehiclesComponents
       }
 
       alias LiveView.Studio.{
         Airports,
+        Boats,
         Flights,
         Sales,
         Sandbox
       }
 
+      alias LiveView.Studio.Boats.Boat
       alias LiveView.Studio.Flights.Flight
+      alias LiveView.Studio.Vehicles.Vehicle
 
       alias Phoenix.LiveView, as: LV
       alias Phoenix.LiveView.{JS, Rendered, Socket}
