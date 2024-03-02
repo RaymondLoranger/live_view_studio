@@ -19,7 +19,10 @@ defmodule LiveView.StudioWeb.Router do
 
     get "/", PageController, :home
 
+    live "/flights", FlightsLive
     live "/light", LightLive
+    live "/sales", SalesLive
+    live "/sandbox", SandboxLive
   end
 
   # Other scopes may use custom stacks.

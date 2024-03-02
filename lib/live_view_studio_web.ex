@@ -51,8 +51,7 @@ defmodule LiveView.StudioWeb do
 
   def live_view do
     quote do
-      use Phoenix.LiveView,
-        layout: {LiveView.StudioWeb.Layouts, :app}
+      use Phoenix.LiveView, layout: {LiveView.StudioWeb.Layouts, :app}
 
       unquote(html_helpers())
     end
@@ -85,6 +84,7 @@ defmodule LiveView.StudioWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import LiveView.StudioWeb.CoreComponents
+      import LiveView.StudioWeb.CommonComponents
       import LiveView.StudioWeb.Gettext
 
       # Shortcut for generating JS commands
@@ -104,11 +104,34 @@ defmodule LiveView.StudioWeb do
     end
   end
 
+  def imports do
+    quote do
+      import Phoenix.Naming, only: [humanize: 1]
+      import Number.Currency
+      import Phoenix.HTML.Form, only: [options_for_select: 2]
+    end
+  end
+
   def aliases do
     quote do
       alias LiveView.StudioWeb.{
-        LightComponents
+        FlightsComponents,
+        LightComponents,
+        SalesComponents,
+        SalesLive,
+        SandboxComponents,
+        SandboxFeeForm,
+        SandboxForm
       }
+
+      alias LiveView.Studio.{
+        Airports,
+        Flights,
+        Sales,
+        Sandbox
+      }
+
+      alias LiveView.Studio.Flights.Flight
 
       alias Phoenix.LiveView, as: LV
       alias Phoenix.LiveView.{JS, Rendered, Socket}

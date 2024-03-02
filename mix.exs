@@ -4,7 +4,7 @@ defmodule LiveView.Studio.MixProject do
   def project do
     [
       app: :live_view_studio,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -56,11 +56,13 @@ defmodule LiveView.Studio.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       # Added dependencies...
-      {:tailwind_formatter, "~> 0.4", only: [:dev, :test], runtime: false},
+      {:number, "~> 1.0"},
+      {:timex, "~> 3.7"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       # {:ex_doc, "~> 0.22", only: :dev, runtime: false},
       {:log_reset, "~> 0.1"},
-      {:phx_formatter, "~> 0.1", only: :dev, runtime: false}
+      {:phx_formatter, "~> 0.1", only: :dev, runtime: false},
+      {:tailwind_formatter, "~> 0.4", only: [:dev, :test], runtime: false}
     ]
   end
 
