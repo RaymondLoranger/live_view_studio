@@ -130,7 +130,7 @@ defmodule LiveView.StudioWeb.BoatsComponents do
       id={@id}
       class="m-3 max-w-sm overflow-hidden rounded bg-white shadow-lg"
     >
-      <img class="w-full" src={@boat.image} />
+      <img class="h-48 w-80" src={@boat.image} />
       <div class="px-6 py-4">
         <div class="text-cool-gray-900 pb-3 text-center text-xl font-bold">
           <%= @boat.model %>

@@ -4,7 +4,7 @@ defmodule LiveView.Studio.MixProject do
   def project do
     [
       app: :live_view_studio,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -56,6 +56,8 @@ defmodule LiveView.Studio.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       # Added dependencies...
+      {:swoosh, "~> 1.3"},
+      {:faker, "~> 0.18"},
       {:number, "~> 1.0"},
       {:timex, "~> 3.7"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
@@ -78,7 +80,7 @@ defmodule LiveView.Studio.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": [
         "ecto.drop",
-        ~S"custom.cmd del /Q priv\static\uploads\*.*",
+        # ~S"custom.cmd del /Q priv\static\uploads\*.*",
         "ecto.setup"
       ],
       # ┌──────────────────────────────────┐
