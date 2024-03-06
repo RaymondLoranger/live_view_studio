@@ -3,10 +3,17 @@ defmodule LiveView.StudioWeb.VolunteersLive do
 
   import VolunteersComponents
 
+  @flash_in_ms 5000
+
   @spec mount(LV.unsigned_params(), map, Socket.t()) ::
           {:ok, Socket.t()}
   def mount(_params, _session, socket) do
-    if connected?(socket), do: Volunteers.subscribe()
+    if connected?(socket) do
+      Volunteers.subscribe()
+      # Only for a :volunteer_created event flash message.
+      Process.send_after(self(), :clear_flash, @flash_in_ms)
+    end
+
     volunteers = Volunteers.list_volunteers_by_desc_id()
 
     {:ok,
@@ -18,8 +25,6 @@ defmodule LiveView.StudioWeb.VolunteersLive do
 
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
-    Process.send_after(self(), :clear_flash, 7000)
-
     ~H"""
     <.volunteers id="volunteers" header="Volunteers 🎖️">
       <.live_component
@@ -46,13 +51,16 @@ defmodule LiveView.StudioWeb.VolunteersLive do
      |> stream_insert(:volunteers, volunteer, at: 0)
      |> update(:count, &(&1 + 1))
      |> put_flash(:info, message(event, volunteer))
-     # ┌────────────────────────────────────────────────────┐
-     # │ So the form behaves properly after initial submit!!│
-     # └────────────────────────────────────────────────────┘
+     # ┌────────────────────────────────────────────────────────┐
+     # │ Will mount a new LiveView while keeping current layout │
+     # │ so the form behaves CONSISTENTLY after initial submit! │
+     # └────────────────────────────────────────────────────────┘
      |> push_navigate(to: ~p"/volunteers")}
   end
 
   def handle_info({:volunteer_updated = event, volunteer}, socket) do
+    Process.send_after(self(), :clear_flash, @flash_in_ms)
+
     {:noreply,
      socket
      |> stream_insert(:volunteers, volunteer)
@@ -60,6 +68,8 @@ defmodule LiveView.StudioWeb.VolunteersLive do
   end
 
   def handle_info({:volunteer_deleted = event, volunteer}, socket) do
+    Process.send_after(self(), :clear_flash, @flash_in_ms)
+
     {:noreply,
      socket
      |> stream_delete(:volunteers, volunteer)
