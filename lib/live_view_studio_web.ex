@@ -109,6 +109,9 @@ defmodule LiveView.StudioWeb do
       import Phoenix.Naming, only: [humanize: 1]
       import Number.Currency
 
+      import LiveView.Studio.Donations,
+        only: [almost_expired?: 1, list_donations: 1, donations_count: 0]
+
       import LiveView.Studio.Vehicles,
         only: [list_vehicles: 1, vehicles_count: 0]
 
@@ -120,31 +123,48 @@ defmodule LiveView.StudioWeb do
     quote do
       alias LiveView.StudioWeb.{
         BoatsComponents,
+        DonationsComponents,
         FlightsComponents,
         LightComponents,
         PerPageForm,
+        PizzasComponents,
         SalesComponents,
         SalesLive,
         SandboxComponents,
         SandboxFeeForm,
         SandboxForm,
-        VehiclesComponents
+        ServerForm,
+        ServerLayout,
+        ServersComponents,
+        VehiclesComponents,
+        VolunteerForm,
+        VolunteerItem,
+        VolunteersComponents
       }
 
       alias LiveView.Studio.{
         Airports,
         Boats,
+        Donations,
         Flights,
+        PizzaOrders,
         Sales,
-        Sandbox
+        Sandbox,
+        Servers,
+        Volunteers
       }
 
       alias LiveView.Studio.Boats.Boat
+      alias LiveView.Studio.Donations.Donation
       alias LiveView.Studio.Flights.Flight
+      alias LiveView.Studio.PizzaOrders.PizzaOrder
+      alias LiveView.Studio.Servers.Server
       alias LiveView.Studio.Vehicles.Vehicle
+      alias LiveView.Studio.Volunteers.Volunteer
 
       alias Phoenix.LiveView, as: LV
       alias Phoenix.LiveView.{JS, Rendered, Socket}
+      alias Phoenix.Socket.Broadcast
     end
   end
 

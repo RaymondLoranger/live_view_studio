@@ -40,6 +40,9 @@ defmodule LiveView.StudioWeb.CoreComponents do
   attr :show, :boolean, default: false
   attr :on_cancel, JS, default: %JS{}
   slot :inner_block, required: true
+  # Customized...
+  attr :outer_class, :string, default: "bg-zinc-50/90"
+  attr :inner_class, :string, default: "bg-white p-14"
 
   def modal(assigns) do
     ~H"""
@@ -52,7 +55,7 @@ defmodule LiveView.StudioWeb.CoreComponents do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/90 fixed inset-0 transition-opacity"
+        class={["fixed inset-0 transition-opacity", @outer_class]}
         aria-hidden="true"
       />
       <div
@@ -70,7 +73,10 @@ defmodule LiveView.StudioWeb.CoreComponents do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-14 shadow-lg ring-1 transition"
+              class={[
+                "shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl shadow-lg ring-1 transition",
+                @inner_class
+              ]}
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -101,7 +107,7 @@ defmodule LiveView.StudioWeb.CoreComponents do
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
-  attr :id, :string, doc: "the optional id of flash container"
+  attr :id, :string, default: "flash", doc: "the optional id of flash container"
   attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
   attr :title, :string, default: nil
 
@@ -233,8 +239,9 @@ defmodule LiveView.StudioWeb.CoreComponents do
     doc: "the server side parameter to collect all input under"
 
   attr :rest, :global,
-    include:
-      ~w(autocomplete name rel action enctype method novalidate target multipart),
+    include: ~w(
+      autocomplete name rel action enctype method novalidate target multipart
+    ),
     doc: "the arbitrary HTML attributes to apply to the form tag"
 
   slot :inner_block, required: true
@@ -265,17 +272,23 @@ defmodule LiveView.StudioWeb.CoreComponents do
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
   attr :type, :string, default: nil
-  attr :class, :string, default: nil
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
+  # Customized...
+  attr :class, :list,
+    default: [
+      "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+      "text-sm font-semibold leading-6 text-white active:text-white/80"
+    ]
 
   def button(assigns) do
     ~H"""
     <button
       type={@type}
       class={[
-        "rounded-lg bg-zinc-900 px-3 py-2 hover:bg-zinc-700 phx-submit-loading:opacity-75",
+        "rounded-lg bg-zinc-900 px-3 py-2 hover:bg-zinc-700",
+        "phx-submit-loading:opacity-75",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
         @class
       ]}
@@ -319,8 +332,7 @@ defmodule LiveView.StudioWeb.CoreComponents do
   attr :type, :string,
     default: "text",
     values:
-      ~w(checkbox color date datetime-local email file hidden month number password
-               range radio search select tel text textarea time url week)
+      ~w(checkbox color date datetime-local email file hidden month number password range radio search select tel text textarea time url week)
 
   attr :field, Phoenix.HTML.FormField,
     doc:
@@ -339,10 +351,22 @@ defmodule LiveView.StudioWeb.CoreComponents do
 
   attr :rest, :global,
     include:
-      ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
-                multiple pattern placeholder readonly required rows size step)
+      ~w(accept autocomplete capture cols disabled form list max maxlength min minlength multiple pattern placeholder readonly required rows size step)
 
   slot :inner_block
+  # Customized...
+  attr :wrapper_class, :string, default: nil
+  attr :label_class, :string, default: nil
+
+  attr :class, :list,
+    default: [
+      "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0",
+      "sm:text-sm sm:leading-6",
+      "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
+      "border-zinc-300 focus:border-zinc-400"
+    ]
+
+  attr :error_class, :string, default: nil
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
@@ -355,14 +379,14 @@ defmodule LiveView.StudioWeb.CoreComponents do
     |> input()
   end
 
-  def input(%{type: "checkbox"} = assigns) do
+  def input(%{type: "checkbox", value: value} = assigns) do
     assigns =
       assign_new(assigns, :checked, fn ->
-        Phoenix.HTML.Form.normalize_value("checkbox", assigns[:value])
+        Phoenix.HTML.Form.normalize_value("checkbox", value)
       end)
 
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@wrapper_class}>
       <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
         <input type="hidden" name={@name} value="false" />
         <input
@@ -383,12 +407,15 @@ defmodule LiveView.StudioWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@wrapper_class}>
       <.label for={@id}><%= @label %></.label>
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class={[
+          "mt-2 block w-full rounded-md border border-gray-300 bg-white",
+          "shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        ]}
         multiple={@multiple}
         {@rest}
       >
@@ -402,14 +429,15 @@ defmodule LiveView.StudioWeb.CoreComponents do
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@wrapper_class}>
       <.label for={@id}><%= @label %></.label>
       <textarea
         id={@id}
         name={@name}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "min-h-[6rem] phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
+          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm",
+          "min-h-[6rem] phx-no-feedback:border-zinc-300 sm:leading-6",
+          "phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
@@ -423,22 +451,26 @@ defmodule LiveView.StudioWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
+    <div phx-feedback-for={@name} class={@wrapper_class}>
+      <.label label_class={@label_class} for={@id}><%= @label %></.label>
       <input
         type={@type}
         name={@name}
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
+          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0",
+          "sm:text-sm sm:leading-6",
+          "phx-no-feedback:border-zinc-300",
+          "phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
       />
-      <.error :for={msg <- @errors}><%= msg %></.error>
+      <.error :for={msg <- @errors} error_class={@error_class}>
+        <%= msg %>
+      </.error>
     </div>
     """
   end
@@ -449,12 +481,15 @@ defmodule LiveView.StudioWeb.CoreComponents do
   attr :for, :string, default: nil
   slot :inner_block, required: true
 
+  # Customized...
+  attr :class, :string,
+    default: "block text-sm font-semibold leading-6 text-zinc-800"
+
+  attr :label_class, :string, default: nil
+
   def label(assigns) do
     ~H"""
-    <label
-      for={@for}
-      class="block text-sm font-semibold leading-6 text-zinc-800"
-    >
+    <label for={@for} class={[@class, @label_class]}>
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -464,10 +499,15 @@ defmodule LiveView.StudioWeb.CoreComponents do
   Generates a generic error message.
   """
   slot :inner_block, required: true
+  # Customized
+  attr :error_class, :string, default: nil
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
+    <p class={[
+      "mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden",
+      @error_class
+    ]}>
       <.icon
         name="hero-exclamation-circle-mini"
         class="mt-0.5 h-5 w-5 flex-none"
