@@ -31,7 +31,7 @@ let liveSocket = new LiveSocket('/live', Socket, {
   longPollFallbackMs: 2500,
   hooks: Hooks,
   params: { _csrf_token: csrfToken }
-})
+})k
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: '#29d' }, shadowColor: 'rgba(0, 0, 0, .3)' })

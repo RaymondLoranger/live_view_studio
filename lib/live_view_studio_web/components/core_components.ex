@@ -278,22 +278,14 @@ defmodule LiveView.StudioWeb.CoreComponents do
   # Customized...
   attr :class, :list,
     default: [
-      "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+      "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700",
+      "py-2 px-3",
       "text-sm font-semibold leading-6 text-white active:text-white/80"
     ]
 
   def button(assigns) do
     ~H"""
-    <button
-      type={@type}
-      class={[
-        "rounded-lg bg-zinc-900 px-3 py-2 hover:bg-zinc-700",
-        "phx-submit-loading:opacity-75",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
-        @class
-      ]}
-      {@rest}
-    >
+    <button type={@type} class={@class} {@rest}>
       <%= render_slot(@inner_block) %>
     </button>
     """
@@ -436,7 +428,8 @@ defmodule LiveView.StudioWeb.CoreComponents do
         name={@name}
         class={[
           "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm",
-          "min-h-[6rem] phx-no-feedback:border-zinc-300 sm:leading-6",
+          "min-h-[6rem] sm:leading-6",
+          "phx-no-feedback:border-zinc-300",
           "phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -459,11 +452,7 @@ defmodule LiveView.StudioWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0",
-          "sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300",
-          "phx-no-feedback:focus:border-zinc-400",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
+          @class,
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}

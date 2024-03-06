@@ -175,8 +175,9 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
       <button
         out={@volunteer.checked_out}
         class={[
-          "w-28 rounded bg-teal-500 px-4 py-2 font-medium text-white outline-none hover:bg-teal-700",
-          "out:bg-slate-400"
+          "w-28 rounded px-4 py-2 font-medium text-white outline-none",
+          "bg-teal-500 hover:bg-teal-700",
+          "out:bg-slate-400 hover:out:bg-slate-600"
         ]}
         phx-click={@click}
         phx-value-id={@id}

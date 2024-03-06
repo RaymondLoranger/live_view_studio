@@ -1,27 +1,27 @@
 // import LineChart from './line-chart'
 // import IncidentMap from './incident-map'
 // import flatpickr from 'flatpickr'
-// import { AsYouType } from 'libphonenumber-js'
+import { AsYouType } from 'libphonenumber-js'
 
 let Hooks = {} // containing object for any JS hooks...
 
-Hooks.AutoFocus = {
-  mounted() {
-    if (this.el.nodeName == 'INPUT') {
-      this.el.focus()
-    } else {
-      this.el.getElementsByTagName('input')[0].focus()
-    }
-  }
-}
+// Hooks.AutoFocus = {
+//   mounted() {
+//     if (this.el.nodeName == 'INPUT') {
+//       this.el.focus()
+//     } else {
+//       this.el.getElementsByTagName('input')[0].focus()
+//     }
+//   }
+// }
 
-Hooks.SetFocus = {
-  mounted() {
-    this.handleEvent('set-focus', ({ id }) => {
-      document.getElementById(id).focus()
-    })
-  }
-}
+// Hooks.SetFocus = {
+//   mounted() {
+//     this.handleEvent('set-focus', ({ id }) => {
+//       document.getElementById(id).focus()
+//     })
+//   }
+// }
 
 Hooks.SelectedServer = {
   mounted() {
@@ -140,12 +140,12 @@ Hooks.InfiniteScroll = {
 //   }
 // }
 
-// Hooks.PhoneNumber = {
-//   mounted() {
-//     this.el.addEventListener('input', (e) => {
-//       this.el.value = new AsYouType('US').input(this.el.value)
-//     })
-//   }
-// }
+Hooks.PhoneNumber = {
+  mounted() {
+    this.el.addEventListener('input', (e) => {
+      this.el.value = new AsYouType('US').input(this.el.value)
+    })
+  }
+}
 
 export default Hooks
