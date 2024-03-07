@@ -158,7 +158,7 @@ defmodule LiveView.Studio.Volunteers do
   @spec broadcast({:ok, %Volunteer{}} | {:error, %Changeset{}}, atom) ::
           {:ok, %Volunteer{}} | {:error, %Changeset{}}
   defp broadcast({:ok, volunteer}, event) do
-    Phoenix.PubSub.broadcast(PubSub, @topic, {event, volunteer})
+    Phoenix.PubSub.broadcast(PubSub, @topic, {__MODULE__, event, volunteer})
     {:ok, volunteer}
   end
 

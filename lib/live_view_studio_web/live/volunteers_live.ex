@@ -45,12 +45,12 @@ defmodule LiveView.StudioWeb.VolunteersLive do
   end
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
-  def handle_info({:volunteer_created = event, volunteer}, socket) do
+  def handle_info({Volunteers, :volunteer_created = evt, volunteer}, socket) do
     {:noreply,
      socket
      |> stream_insert(:volunteers, volunteer, at: 0)
      |> update(:count, &(&1 + 1))
-     |> put_flash(:info, message(event, volunteer))
+     |> put_flash(:info, message(evt, volunteer))
      # ┌────────────────────────────────────────────────────────┐
      # │ Will mount a new LiveView while keeping current layout │
      # │ so the form behaves CONSISTENTLY after initial submit! │
@@ -58,23 +58,23 @@ defmodule LiveView.StudioWeb.VolunteersLive do
      |> push_navigate(to: ~p"/volunteers")}
   end
 
-  def handle_info({:volunteer_updated = event, volunteer}, socket) do
+  def handle_info({Volunteers, :volunteer_updated = evt, volunteer}, socket) do
     Process.send_after(self(), :clear_flash, @flash_in_ms)
 
     {:noreply,
      socket
      |> stream_insert(:volunteers, volunteer)
-     |> put_flash(:info, message(event, volunteer))}
+     |> put_flash(:info, message(evt, volunteer))}
   end
 
-  def handle_info({:volunteer_deleted = event, volunteer}, socket) do
+  def handle_info({Volunteers, :volunteer_deleted = evt, volunteer}, socket) do
     Process.send_after(self(), :clear_flash, @flash_in_ms)
 
     {:noreply,
      socket
      |> stream_delete(:volunteers, volunteer)
      |> update(:count, &(&1 - 1))
-     |> put_flash(:info, message(event, volunteer))}
+     |> put_flash(:info, message(evt, volunteer))}
   end
 
   def handle_info(:clear_flash, socket) do
@@ -87,7 +87,7 @@ defmodule LiveView.StudioWeb.VolunteersLive do
 
   ## Private functions
 
-  @spec message(atom, %Volunteer{}) :: String.t()
+  @spec message(event :: atom, %Volunteer{}) :: String.t()
   defp message(:volunteer_created, %Volunteer{name: name, checked_out: false}),
     do: "#{name} checked in to volunteer!"
 
