@@ -4,7 +4,7 @@ defmodule LiveView.Studio.MixProject do
   def project do
     [
       app: :live_view_studio,
-      version: "0.1.8",
+      version: "0.1.9",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -80,7 +80,10 @@ defmodule LiveView.Studio.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": [
         "ecto.drop",
-        # ~S"custom.cmd del /Q priv\static\uploads\*.*",
+        ~S"cmd echo ──────────────────────────────",
+        ~S"cmd echo del /Q priv\static\uploads\*.*",
+        ~S"cmd echo ──────────────────────────────",
+        ~S"cmd del /Q priv\static\uploads\*.*",
         "ecto.setup"
       ],
       # ┌──────────────────────────────────┐

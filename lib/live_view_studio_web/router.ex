@@ -20,10 +20,14 @@ defmodule LiveView.StudioWeb.Router do
     get "/", PageController, :home
 
     live "/boats", BoatsLive
+    live "/desks", DesksLive
     live "/donations", DonationsLive, :paginate
     live "/donations/paginate", DonationsLive, :paginate
     live "/donations/sort", DonationsLive, :sort
     live "/flights", FlightsLive
+    live "/git-repos", GitReposLive
+    live "/juggling", JugglingLive
+    live "/license", LicenseLive
     live "/light", LightLive
     live "/pizzas", PizzasLive
     live "/sales", SalesLive
@@ -34,6 +38,11 @@ defmodule LiveView.StudioWeb.Router do
     live "/servers/new/modal", ServersLive, :modal_new
     live "/server-names", ServerNamesLive
     live "/server-names/:name", ServerNamesLive
+    live "/stores", StoresLive
+    live "/stores/autocomplete", StoresLive, :autocomplete
+    live "/toc", TOCLive
+    live "/underwater", UnderwaterLive
+    live "/underwater/show", UnderwaterLive, :show_modal
     live "/vehicles", VehiclesLive
     live "/volunteers", VolunteersLive
   end

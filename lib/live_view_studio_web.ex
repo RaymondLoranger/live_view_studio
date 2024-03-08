@@ -17,7 +17,8 @@ defmodule LiveView.StudioWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  #                                                                   ↓ ↓ ↓ ↓
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt uploads)
 
   def router do
     quote do
@@ -106,8 +107,7 @@ defmodule LiveView.StudioWeb do
 
   def imports do
     quote do
-      import Phoenix.Naming, only: [humanize: 1]
-      import Number.Currency
+      import Enum, only: [with_index: 1]
 
       import LiveView.Studio.Donations,
         only: [almost_expired?: 1, list_donations: 1, donations_count: 0]
@@ -115,7 +115,9 @@ defmodule LiveView.StudioWeb do
       import LiveView.Studio.Vehicles,
         only: [list_vehicles: 1, vehicles_count: 0]
 
+      import Number.Currency
       import Phoenix.HTML.Form, only: [options_for_select: 2]
+      import Phoenix.Naming, only: [humanize: 1]
     end
   end
 
@@ -123,11 +125,18 @@ defmodule LiveView.StudioWeb do
     quote do
       alias LiveView.StudioWeb.{
         BoatsComponents,
+        DeskForm,
+        DesksComponents,
         DonationsComponents,
+        Endpoint,
         FlightsComponents,
+        GitReposComponents,
+        JugglingComponents,
+        LicenseComponents,
         LightComponents,
         PerPageForm,
         PizzasComponents,
+        Router,
         SalesComponents,
         SalesLive,
         SandboxComponents,
@@ -136,6 +145,9 @@ defmodule LiveView.StudioWeb do
         ServerForm,
         ServerLayout,
         ServersComponents,
+        StoresComponents,
+        TOCComponents,
+        UnderwaterComponents,
         VehiclesComponents,
         VolunteerForm,
         VolunteerItem,
@@ -145,25 +157,33 @@ defmodule LiveView.StudioWeb do
       alias LiveView.Studio.{
         Airports,
         Boats,
+        Cities,
+        Desks,
         Donations,
         Flights,
+        GitRepos,
+        Licenses,
         PizzaOrders,
         Sales,
         Sandbox,
         Servers,
+        Stores,
         Volunteers
       }
 
       alias LiveView.Studio.Boats.Boat
+      alias LiveView.Studio.Desks.Desk
       alias LiveView.Studio.Donations.Donation
       alias LiveView.Studio.Flights.Flight
+      alias LiveView.Studio.GitRepos.GitRepo
       alias LiveView.Studio.PizzaOrders.PizzaOrder
       alias LiveView.Studio.Servers.Server
+      alias LiveView.Studio.Stores.Store
       alias LiveView.Studio.Vehicles.Vehicle
       alias LiveView.Studio.Volunteers.Volunteer
 
       alias Phoenix.LiveView, as: LV
-      alias Phoenix.LiveView.{JS, Rendered, Socket}
+      alias Phoenix.LiveView.{JS, Rendered, Socket, UploadEntry}
       alias Phoenix.Socket.Broadcast
     end
   end
