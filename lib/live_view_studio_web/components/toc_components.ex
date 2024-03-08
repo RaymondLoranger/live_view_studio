@@ -11,10 +11,13 @@ defmodule LiveView.StudioWeb.TOCComponents do
   def welcome_section(assigns) do
     ~H"""
     <section class="bg-cool-gray-400 mx-12 mt-0 mb-4 rounded-md px-4 py-8 text-center">
-      <h1 class="mb-4 text-center text-4xl font-medium text-blue-900 underline decoration-wavy">
+      <h1 class={[
+        "mb-4 text-center text-4xl font-medium text-blue-900",
+        "underline decoration-wavy hover:opacity-70"
+      ]}>
         <%= gettext("Welcome to %{name}!", name: "Phoenix") %>
       </h1>
-      <p class="mb-8 text-lg font-normal">
+      <p class="mb-8 text-lg font-normal hover:opacity-70">
         Peace of mind from prototype to production
       </p>
       <%= render_slot(@inner_block) %>
@@ -79,7 +82,10 @@ defmodule LiveView.StudioWeb.TOCComponents do
   def toc_section(assigns) do
     ~H"""
     <section id="toc" class="mt-8 flex flex-col items-center gap-1">
-      <h2 class="text-center text-3xl font-normal tracking-wider">
+      <h2 class={[
+        "text-center text-3xl font-normal tracking-wider",
+        "hover:opacity-70"
+      ]}>
         Table of Contents
       </h2>
       <ul
@@ -108,14 +114,20 @@ defmodule LiveView.StudioWeb.TOCComponents do
 
   @spec live_views :: [{text :: String.t(), path :: String.t()}]
   defp live_views do
-    for %{path: path, metadata: metadata} <- Router.__routes__(),
-        metadata[:phoenix_live_view],
-        {module, action, _list, _map} = metadata.phoenix_live_view,
+    for %{path: path, metadata: metadata, plug: plug} <- Router.__routes__(),
+        {module, action, _list, _map} =
+          (if metadata[:phoenix_live_view] do
+             metadata.phoenix_live_view
+           else
+             {plug, nil, [], %{}}
+           end),
         module = inspect(module),
         String.starts_with?(module, @namespace),
         !String.contains?(path, ":") do
-      # E.g. captures "GitRepos" in "LiveView.StudioWeb.GitReposLive"...
-      [_, camel_case] = Regex.run(~r/Web\.(.+)Live$/, module)
+      # E.g. captures "GitRepos" in "LiveView.StudioWeb.GitReposLive".
+      # Also captures "PageController" in "LiveView.StudioWeb.PageController".
+      [_, camel_case, _] = Regex.run(~r/Web\.(.+?)(Live|)?$/, module)
+      # E.g. {"Git Repos", "/git-repos"}...
       {text(camel_case) |> text(action), path}
     end
     |> Enum.uniq_by(fn {text, _path} -> text end)
@@ -133,6 +145,7 @@ defmodule LiveView.StudioWeb.TOCComponents do
   end
 
   @spec text(String.t()) :: String.t()
+  defp text("TOC"), do: "Table of Contents"
   # "GitRepos" => "Git Repos"
   defp text(camel_case) when is_binary(camel_case) do
     # Insert a space before all noninitial capital letters...
@@ -149,6 +162,7 @@ defmodule LiveView.StudioWeb.TOCComponents do
   defp prefix("/donations/sort"), do: "🎁 "
   defp prefix("/flights"), do: "✈️ "
   defp prefix("/git-repos"), do: "📚 "
+  defp prefix("/home"), do: "🏠 "
   defp prefix("/juggling"), do: "🤹🏻‍♂️ "
   defp prefix("/license"), do: "🎫 "
   defp prefix("/light"), do: "💡 "
@@ -156,6 +170,7 @@ defmodule LiveView.StudioWeb.TOCComponents do
   defp prefix("/pizzas"), do: "🍕 "
   defp prefix("/presence"), do: "👀 "
   defp prefix("/sales"), do: "📊 "
+  defp prefix("/sales-home"), do: "📊 "
   defp prefix("/sandbox"), do: "🏝 "
   defp prefix("/servers"), do: "👨‍💻 "
   defp prefix("/servers/new/form"), do: "👨‍💻 "
@@ -164,11 +179,12 @@ defmodule LiveView.StudioWeb.TOCComponents do
   defp prefix("/stores"), do: "🏬 "
   defp prefix("/stores/autocomplete"), do: "🏬 "
   defp prefix("/shop"), do: "🛒 "
+  defp prefix("/"), do: "📖 "
   defp prefix("/toc"), do: "📖 "
   defp prefix("/topsecret"), do: "🕵🏼 "
   defp prefix("/underwater"), do: "🐠 "
   defp prefix("/underwater/show"), do: "🐠 "
   defp prefix("/vehicles"), do: "🚗 "
   defp prefix("/volunteers"), do: "🙋‍♀️ "
-  defp prefix(_), do: ""
+  defp prefix(_), do: "❓ "
 end

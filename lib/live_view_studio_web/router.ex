@@ -17,8 +17,10 @@ defmodule LiveView.StudioWeb.Router do
   scope "/", LiveView.StudioWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/home", PageController, :home # Welcome Page
+    get "/sales-home", SalesController, :home
 
+    live "/", TOCLive # Table of Contents
     live "/boats", BoatsLive
     live "/desks", DesksLive
     live "/donations", DonationsLive, :paginate
@@ -40,7 +42,7 @@ defmodule LiveView.StudioWeb.Router do
     live "/server-names/:name", ServerNamesLive
     live "/stores", StoresLive
     live "/stores/autocomplete", StoresLive, :autocomplete
-    live "/toc", TOCLive
+    live "/toc", TOCLive # Table of Contents
     live "/underwater", UnderwaterLive
     live "/underwater/show", UnderwaterLive, :show_modal
     live "/vehicles", VehiclesLive

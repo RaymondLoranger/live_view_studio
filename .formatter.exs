@@ -2,7 +2,7 @@
 wildcard = fn glob -> Path.wildcard(glob, match_dot: true) end
 matches = fn globs -> Enum.flat_map(globs, &wildcard.(&1)) end
 
-except = []
+except = ["lib/live_view_studio_web/router.ex"]
 
 inputs = [
   "*.{heex,ex,exs}",
