@@ -8,8 +8,8 @@ defmodule LiveView.StudioWeb.VolunteerItem do
     ~H"""
     <article id={@id}>
       <.volunteer_item volunteer={@volunteer}>
-        <.name volunteer={@volunteer} />
-        <.phone volunteer={@volunteer} />
+        <.item_name volunteer={@volunteer} />
+        <.item_phone volunteer={@volunteer} />
         <.check_in_out_button
           volunteer={@volunteer}
           click="toggle-status"

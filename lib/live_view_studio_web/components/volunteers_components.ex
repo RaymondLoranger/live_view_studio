@@ -1,6 +1,14 @@
 defmodule LiveView.StudioWeb.VolunteersComponents do
   use LiveView.StudioWeb, [:html, :aliases]
 
+  @field_class [
+    "w-full appearance-none px-3 py-2 border rounded-md transition duration-150 ease-in-out text-xl placeholder-slate-400 mt-0",
+    "phx-no-feedback:border-slate-400 phx-no-feedback:focus:border-teal-300 phx-no-feedback:focus:outline-none phx-no-feedback:focus:ring phx-no-feedback:focus:ring-teal-300",
+    "border-slate-400 focus:border-teal-300 focus:outline-none focus:ring focus:ring-teal-300"
+  ]
+
+  @error_class "!mt-0.5 !text-rose-800"
+
   attr :header, :string, required: true
   attr :id, :string, required: true
   slot :inner_block, required: true
@@ -71,11 +79,11 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
     """
   end
 
-  # attr :form, Phoenix.HTML.Form, required: true
-  # Above declarative assign commented out to prevent warning:
-  # this clause cannot match because a previous clause always matches
+  attr :form, Phoenix.HTML.Form, required: true
+  attr :field_class, :list, default: @field_class
+  attr :error_class, :string, default: @error_class
 
-  def name(%{form: _} = assigns) do
+  def name(assigns) do
     ~H"""
     <.input
       field={@form[:name]}
@@ -83,17 +91,15 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
       autocomplete="off"
       phx-debounce="2000"
       wrapper_class="flex-1 mr-4"
-      class={field_class()}
-      error_class={error_class()}
+      class={@field_class}
+      error_class={@error_class}
     />
     """
   end
 
-  # attr :volunteer, Volunteer, required: true
-  # Above declarative assign commented out to prevent error:
-  # attributes must be defined before the first function clause
+  attr :volunteer, Volunteer, required: true
 
-  def name(assigns) do
+  def item_name(assigns) do
     ~H"""
     <div class="justify-self-start overflow-auto font-bold text-teal-600">
       <%= @volunteer.name %>
@@ -101,11 +107,11 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
     """
   end
 
-  # attr :form, Phoenix.HTML.Form, required: true
-  # Above declarative assign commented out to prevent warning:
-  # this clause cannot match because a previous clause always matches
+  attr :form, Phoenix.HTML.Form, required: true
+  attr :field_class, :list, default: @field_class
+  attr :error_class, :string, default: @error_class
 
-  def phone(%{form: _} = assigns) do
+  def phone(assigns) do
     ~H"""
     <.input
       field={@form[:phone]}
@@ -115,17 +121,15 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
       phx-debounce="blur"
       phx-hook="PhoneNumber"
       wrapper_class="flex-1 mr-4"
-      class={field_class()}
-      error_class={error_class()}
+      class={@field_class}
+      error_class={@error_class}
     />
     """
   end
 
-  # attr :volunteer, Volunteer, required: true
-  # Above declarative assign commented out to prevent error:
-  # attributes must be defined before the first function clause
+  attr :volunteer, Volunteer, required: true
 
-  def phone(assigns) do
+  def item_phone(assigns) do
     ~H"""
     <div class="flex items-center justify-self-start whitespace-nowrap font-medium text-slate-500">
       <img class="mt-0.5 mr-2 h-5 w-5" src="/images/phone.svg" />
@@ -213,28 +217,6 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
   end
 
   ## Private functions
-
-  defp field_class do
-    # class={[
-    #   "w-full appearance-none px-3 py-2 border rounded-md transition
-    #       duration-150 ease-in-out text-xl placeholder-slate-400 mt-0",
-    #   "phx-no-feedback:border-slate-400 phx-no-feedback:focus:border-teal-300
-    #       phx-no-feedback:focus:outline-none phx-no-feedback:focus:ring
-    #       phx-no-feedback:focus:ring-teal-300",
-    #   "border-slate-400 focus:border-teal-300 focus:outline-none focus:ring
-    #       focus:ring-teal-300"
-    # ]}
-    [
-      "w-full appearance-none px-3 py-2 border rounded-md transition duration-150 ease-in-out text-xl placeholder-slate-400 mt-0",
-      "phx-no-feedback:border-slate-400 phx-no-feedback:focus:border-teal-300 phx-no-feedback:focus:outline-none phx-no-feedback:focus:ring phx-no-feedback:focus:ring-teal-300",
-      "border-slate-400 focus:border-teal-300 focus:outline-none focus:ring focus:ring-teal-300"
-    ]
-  end
-
-  defp error_class do
-    # class="!mt-0.5 !text-rose-800"
-    "!mt-0.5 !text-rose-800"
-  end
 
   @spec text(%Volunteer{}) :: String.t()
   defp text(%Volunteer{checked_out: true}), do: "Check In"
