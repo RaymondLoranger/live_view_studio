@@ -71,9 +71,9 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
     """
   end
 
-  # Declarative assign commented out to prevent warning:
-  # this clause cannot match because a previous clause always matches
   # attr :form, Phoenix.HTML.Form, required: true
+  # Above declarative assign commented out to prevent warning:
+  # this clause cannot match because a previous clause always matches
 
   def name(%{form: _} = assigns) do
     ~H"""
@@ -90,6 +90,8 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
   end
 
   # attr :volunteer, Volunteer, required: true
+  # Above declarative assign commented out to prevent error:
+  # attributes must be defined before the first function clause
 
   def name(assigns) do
     ~H"""
@@ -100,7 +102,7 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
   end
 
   # attr :form, Phoenix.HTML.Form, required: true
-  # Declarative assign commented out to prevent warning:
+  # Above declarative assign commented out to prevent warning:
   # this clause cannot match because a previous clause always matches
 
   def phone(%{form: _} = assigns) do
@@ -120,6 +122,8 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
   end
 
   # attr :volunteer, Volunteer, required: true
+  # Above declarative assign commented out to prevent error:
+  # attributes must be defined before the first function clause
 
   def phone(assigns) do
     ~H"""
