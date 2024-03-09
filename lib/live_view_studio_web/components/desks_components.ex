@@ -52,8 +52,8 @@ defmodule LiveView.StudioWeb.DesksComponents do
       autofocus={@autofocus}
       class={[
         "mb-4 appearance-none block w-full px-3 py-2 border rounded-md placeholder-slate-400 transition duration-150 ease-in-out",
-        "!phx-no-feedback:border-slate-400 phx-no-feedback:focus:border-indigo-300 phx-no-feedback:focus:outline-none phx-no-feedback:focus:ring phx-no-feedback:focus:ring-indigo-300",
-        "!border-slate-400 focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-300"
+        "phx-no-feedback:border-slate-400 phx-no-feedback:focus:border-indigo-300 phx-no-feedback:focus:outline-none phx-no-feedback:focus:ring phx-no-feedback:focus:ring-indigo-300",
+        "border-slate-400 focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-300"
       ]}
       error_class="!-mt-3 !text-rose-800"
     />
