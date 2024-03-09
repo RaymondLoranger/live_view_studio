@@ -35,7 +35,7 @@ defmodule LiveView.StudioWeb.DesksLive do
   end
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
-  def handle_info({:desk_created, desk}, socket) do
+  def handle_info({Desks, :desk_created, desk}, socket) do
     {:noreply, stream_insert(socket, :desks, desk, at: 0)}
   end
 end

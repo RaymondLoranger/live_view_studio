@@ -168,7 +168,7 @@ defmodule LiveView.Studio.Servers do
   @spec broadcast({:ok, %Server{}} | {:error, %Changeset{}}, atom) ::
           {:ok, %Server{}} | {:error, %Changeset{}}
   defp broadcast({:ok, server}, event) do
-    Phoenix.PubSub.broadcast(PubSub, @topic, {event, server})
+    Phoenix.PubSub.broadcast(PubSub, @topic, {__MODULE__, event, server})
     {:ok, server}
   end
 
