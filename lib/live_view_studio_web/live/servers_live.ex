@@ -86,21 +86,21 @@ defmodule LiveView.StudioWeb.ServersLive do
   end
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
-  def handle_info({:server_created, server}, socket) do
+  def handle_info({Servers, :server_created, server}, socket) do
     {:noreply,
      socket
      |> stream_insert(:servers, server, at: 0)
      |> push_patch(to: ~p"/servers/#{server}")}
   end
 
-  def handle_info({:server_updated, server}, socket) do
+  def handle_info({Servers, :server_updated, server}, socket) do
     {:noreply,
      socket
      |> stream_insert(:servers, server)
      |> push_patch(to: ~p"/servers/#{server}")}
   end
 
-  def handle_info({:server_deleted, server}, socket) do
+  def handle_info({Servers, :server_deleted, server}, socket) do
     {:noreply,
      socket
      |> stream_delete(:servers, server)

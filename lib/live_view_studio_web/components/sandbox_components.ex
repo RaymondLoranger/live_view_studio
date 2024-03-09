@@ -162,6 +162,19 @@ defmodule LiveView.StudioWeb.SandboxComponents do
     """
   end
 
+  attr :material, :string, required: true
+
+  def select_material(assigns) do
+    ~H"""
+    <select
+      name="material"
+      class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 mr-4 w-40 cursor-pointer appearance-none rounded-lg border px-4 py-3 font-semibold leading-tight"
+    >
+      <%= options_for_select(material_options(), @material) %>
+    </select>
+    """
+  end
+
   attr :weight, :float, required: true
 
   def weight_calculated(assigns) do
@@ -184,5 +197,16 @@ defmodule LiveView.StudioWeb.SandboxComponents do
       Calculate Quote
     </button>
     """
+  end
+
+  ## Private functions
+
+  defp material_options do
+    [
+      Sand: "sand",
+      "Beach Sand": "beach sand",
+      "Mason Sand": "mason sand",
+      "River Sand": "river sand"
+    ]
   end
 end

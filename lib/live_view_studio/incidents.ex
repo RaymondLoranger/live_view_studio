@@ -148,7 +148,7 @@ defmodule LiveView.Studio.Incidents do
   ## Private functions
 
   defp broadcast({:ok, incident}, event) do
-    Phoenix.PubSub.broadcast(PubSub, @topic, {event, incident})
+    Phoenix.PubSub.broadcast(PubSub, @topic, {__MODULE__, event, incident})
     {:ok, incident}
   end
 

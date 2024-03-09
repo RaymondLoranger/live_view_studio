@@ -144,7 +144,7 @@ defmodule LiveView.Studio.Desks do
   @spec broadcast({:ok, %Desk{}} | {:error, %Changeset{}}, atom) ::
           {:ok, %Desk{}} | {:error, %Changeset{}}
   defp broadcast({:ok, desk}, event) do
-    Phoenix.PubSub.broadcast(PubSub, @topic, {event, desk})
+    Phoenix.PubSub.broadcast(PubSub, @topic, {__MODULE__, event, desk})
     {:ok, desk}
   end
 

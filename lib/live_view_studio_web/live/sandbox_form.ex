@@ -5,7 +5,14 @@ defmodule LiveView.StudioWeb.SandboxForm do
 
   @spec mount(Socket.t()) :: {:ok, Socket.t()}
   def mount(socket) do
-    {:ok, assign(socket, length: nil, width: nil, depth: nil, weight: 0.0)}
+    {:ok,
+     assign(socket,
+       length: nil,
+       width: nil,
+       depth: nil,
+       weight: 0.0,
+       material: "sand"
+     )}
   end
 
   @spec render(Socket.assigns()) :: Rendered.t()
@@ -34,6 +41,7 @@ defmodule LiveView.StudioWeb.SandboxForm do
           value={@depth}
           unit="inches"
         />
+        <.select_material material={@material} />
         <.weight_calculated weight={@weight} />
         <.calculate_quote_button />
       </.sandbox_form>
