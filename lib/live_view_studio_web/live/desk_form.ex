@@ -22,9 +22,9 @@ defmodule LiveView.StudioWeb.DeskForm do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article>
+    <article id={"#{@id}-component"}>
       <.desk_form
-        id="desk-form"
+        id={@id}
         for={@form}
         target={@myself}
         submit="save"

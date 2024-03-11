@@ -154,12 +154,14 @@ defmodule LiveView.StudioWeb.VolunteersComponents do
     """
   end
 
+  attr :id, :string, required: true
   attr :volunteer, Volunteer, required: true
   slot :inner_block, required: true
 
   def volunteer_item(assigns) do
     ~H"""
     <div
+      id={@id}
       out={@volunteer.checked_out}
       class={[
         "group relative mt-2 grid h-20 w-full grid-cols-3 items-center rounded border border-slate-300 bg-white px-6 py-4 text-lg",

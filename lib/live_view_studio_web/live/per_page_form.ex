@@ -5,12 +5,13 @@ defmodule LiveView.StudioWeb.PerPageForm do
   def render(assigns) do
     ~H"""
     <article
+      id={"#{@id}-component"}
       phx-target={@myself}
       phx-window-keydown="paginate"
       phx-throttle="300"
     >
       <form
-        id="per-page-form"
+        id={@id}
         phx-change="select-per-page"
         phx-target={@myself}
         class="mb-4 flex items-center justify-end"

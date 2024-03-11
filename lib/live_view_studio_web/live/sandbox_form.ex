@@ -18,8 +18,8 @@ defmodule LiveView.StudioWeb.SandboxForm do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article>
-      <.sandbox_form target={@myself} change="calc-weight" submit="calc-price">
+    <article id={"#{@id}-component"}>
+      <.sandbox_form id={@id} target={@myself} change="change" submit="submit">
         <.dim_field
           name="length"
           label="Length:"
@@ -42,7 +42,7 @@ defmodule LiveView.StudioWeb.SandboxForm do
           unit="inches"
         />
         <.select_material material={@material} />
-        <.weight_calculated weight={@weight} />
+        <.what_you_need weight={@weight} material={@material} />
         <.calculate_quote_button />
       </.sandbox_form>
     </article>
@@ -52,22 +52,24 @@ defmodule LiveView.StudioWeb.SandboxForm do
   @spec handle_event(event :: binary, LV.unsigned_params(), Socket.t()) ::
           {:noreply, Socket.t()}
   def handle_event(
-        "calc-weight",
-        %{"length" => l, "width" => w, "depth" => d} = _params,
+        "change",
+        %{"length" => l, "width" => w, "depth" => d, "material" => m} = _params,
         socket
       ) do
-    send(self(), {__MODULE__, :totals, nil, 0.0})
+    send(self(), {__MODULE__, :totals, nil, nil, nil})
     weight = Sandbox.calculate_weight(l, w, d)
-    {:noreply, assign(socket, length: l, width: w, depth: d, weight: weight)}
+
+    {:noreply,
+     assign(socket, length: l, width: w, depth: d, material: m, weight: weight)}
   end
 
   def handle_event(
-        "calc-price",
+        "submit",
         _params,
-        %Socket{assigns: %{weight: weight}} = socket
+        %Socket{assigns: %{weight: weight, material: material}} = socket
       ) do
     price = Sandbox.calculate_price(weight)
-    send(self(), {__MODULE__, :totals, weight, price})
+    send(self(), {__MODULE__, :totals, weight, price, material})
     {:noreply, socket}
   end
 end

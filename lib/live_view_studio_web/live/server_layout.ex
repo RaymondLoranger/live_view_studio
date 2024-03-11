@@ -6,8 +6,8 @@ defmodule LiveView.StudioWeb.ServerLayout do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article>
-      <.server_layout id="server-layout">
+    <article id={"#{@id}-component"}>
+      <.server_layout id={@id}>
         <.server_header id="server-header">
           <.server_name id="server-name" name={@server.name} />
           <.toggle_button

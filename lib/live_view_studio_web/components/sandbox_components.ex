@@ -2,7 +2,12 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   use LiveView.StudioWeb, [:html, :imports, :aliases]
 
   @colors ~W[green-700 blue-800 indigo-600 purple-700 pink-600]
-  @sands ["river sand", "mason sand", "beach sand", "sand"]
+  @material_options [
+    Sand: "sand",
+    "Beach Sand": "beach sand",
+    "Mason Sand": "mason sand",
+    "River Sand": "river sand"
+  ]
 
   attr :header, :string, required: true
   attr :id, :string, required: true
@@ -24,16 +29,15 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   attr :weight, :float, required: true
   attr :price, :float, required: true
   attr :fee, :float, required: true
+  attr :material, :string, required: true
   attr :color, :any
   attr :hrs_until_expires, :any
-  attr :material, :any
 
   def sandbox_quote(assigns) do
     assigns =
       assigns
       |> assign_new(:color, fn -> Enum.random(@colors) end)
       |> assign_new(:hrs_until_expires, fn -> Enum.random(24..6//-6) end)
-      |> assign_new(:material, fn -> Enum.random(@sands) end)
 
     ~H"""
     <div
@@ -86,6 +90,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
     """
   end
 
+  attr :id, :string, required: true
   attr :target, Phoenix.LiveComponent.CID, required: true
   attr :change, :string, required: true
   attr :submit, :string, required: true
@@ -95,7 +100,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   def sandbox_form(assigns) do
     ~H"""
     <form
-      id="sandbox-form"
+      id={@id}
       phx-target={@target}
       phx-change={@change}
       phx-submit={@submit}
@@ -107,6 +112,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
     """
   end
 
+  attr :id, :string, required: true
   attr :target, Phoenix.LiveComponent.CID, required: true
   attr :change, :string, required: true
   slot :inner_block, required: true
@@ -115,7 +121,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   def zip_form(assigns) do
     ~H"""
     <form
-      id="sandbox-fee-form"
+      id={@id}
       phx-target={@target}
       phx-change={@change}
       onKeyDown="return event.key != 'Enter';"
@@ -163,27 +169,30 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   end
 
   attr :material, :string, required: true
+  attr :material_options, :list, default: @material_options
 
   def select_material(assigns) do
     ~H"""
+    <span class="text-white">Material:</span>
     <select
       name="material"
-      class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 mr-4 w-40 cursor-pointer appearance-none rounded-lg border px-4 py-3 font-semibold leading-tight"
+      class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 mr-4 w-48 cursor-pointer appearance-none rounded-lg border px-4 py-3 font-semibold leading-tight"
     >
-      <%= options_for_select(material_options(), @material) %>
+      <%= options_for_select(@material_options, @material) %>
     </select>
     """
   end
 
   attr :weight, :float, required: true
+  attr :material, :string, required: true
 
-  def weight_calculated(assigns) do
+  def what_you_need(assigns) do
     ~H"""
     <div
       id="weight-calculated"
       class="mt-4 block text-base font-semibold leading-5 text-gray-700 dark:text-gray-200"
     >
-      You need <%= @weight %> pounds of sand 🏝
+      You need <%= @weight %> pounds of <%= @material %> 🏝
     </div>
     """
   end
@@ -197,16 +206,5 @@ defmodule LiveView.StudioWeb.SandboxComponents do
       Calculate Quote
     </button>
     """
-  end
-
-  ## Private functions
-
-  defp material_options do
-    [
-      Sand: "sand",
-      "Beach Sand": "beach sand",
-      "Mason Sand": "mason sand",
-      "River Sand": "river sand"
-    ]
   end
 end

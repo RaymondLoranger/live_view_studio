@@ -6,8 +6,8 @@ defmodule LiveView.StudioWeb.VolunteerItem do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article id={@id}>
-      <.volunteer_item volunteer={@volunteer}>
+    <article id={"#{@id}-component"}>
+      <.volunteer_item id={@id} volunteer={@volunteer}>
         <.item_name volunteer={@volunteer} />
         <.item_phone volunteer={@volunteer} />
         <.check_in_out_button

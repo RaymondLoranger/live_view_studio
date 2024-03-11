@@ -31,9 +31,9 @@ defmodule LiveView.StudioWeb.ServerForm do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article>
+    <article id={"#{@id}-component"}>
       <.server_form
-        id="server-form"
+        id={@id}
         for={@form}
         target={@myself}
         submit="save"

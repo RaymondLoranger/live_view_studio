@@ -22,11 +22,11 @@ defmodule LiveView.StudioWeb.VolunteerForm do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <article>
+    <article id={"#{@id}-component"}>
       <.prompt count={@count} />
       <.focus_wrap id="volunteer-form-focus-wrap">
         <.volunteer_form
-          id="volunteer-form"
+          id={@id}
           for={@form}
           target={@myself}
           change="validate"
