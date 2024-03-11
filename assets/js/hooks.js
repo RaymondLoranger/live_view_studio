@@ -1,5 +1,5 @@
 // import LineChart from './line-chart'
-// import IncidentMap from './incident-map'
+import IncidentMap from './incident-map'
 // import flatpickr from 'flatpickr'
 import { AsYouType } from 'libphonenumber-js'
 
@@ -53,52 +53,52 @@ Hooks.InfiniteScroll = {
   }
 }
 
-// Hooks.IncidentMap = {
-//   mounted() {
-//     _denver = [39.74, -104.99]
-//     montreal = [45.5, -73.6]
+Hooks.IncidentMap = {
+  mounted() {
+    _denver = [39.74, -104.99]
+    montreal = [45.5, -73.6]
 
-//     this.map = new IncidentMap(this.el, montreal, (event) => {
-//       const incidentId = event.target.options.incidentId
+    this.map = new IncidentMap(this.el, montreal, (event) => {
+      const incidentId = event.target.options.incidentId
 
-//       // Push event but wait for LiveView's reply before scrolling.
-//       this.pushEvent('marker-clicked', incidentId, (reply, _ref) => {
-//         this.scrollTo(reply.incident.id) // same as incidentId
-//       })
-//     })
+      // Push event but wait for LiveView's reply before scrolling.
+      this.pushEvent('marker-clicked', incidentId, (reply, _ref) => {
+        this.scrollTo(reply.incident.id) // same as incidentId
+      })
+    })
 
-//     this.pushEvent('get-incidents', {}, (reply, _ref) => {
-//       reply.incidents.forEach((incident) => {
-//         this.map.addMarker(incident)
-//       })
-//     })
+    this.pushEvent('get-incidents', {}, (reply, _ref) => {
+      reply.incidents.forEach((incident) => {
+        this.map.addMarker(incident)
+      })
+    })
 
-//     // Replaced by the above pushEvent...
-//     // const incidents = JSON.parse(this.el.dataset.incidents);
+    // Replaced by the above pushEvent...
+    // const incidents = JSON.parse(this.el.dataset.incidents);
 
-//     // incidents.forEach(incident => {
-//     //   this.map.addMarker(incident);
-//     // })
+    // incidents.forEach(incident => {
+    //   this.map.addMarker(incident);
+    // })
 
-//     this.handleEvent('highlight-marker', (incident) => {
-//       this.map.highlightMarker(incident)
-//     })
+    this.handleEvent('highlight-marker', (incident) => {
+      this.map.highlightMarker(incident)
+    })
 
-//     this.handleEvent('add-ma-selected-serverrker', (incident) => {
-//       this.map.addMarker(incident)
-//       this.map.highlightMarker(incident)
-//       this.scrollTo(incident.id)
-//     })
-//   },
+    this.handleEvent('add-ma-selected-serverrker', (incident) => {
+      this.map.addMarker(incident)
+      this.map.highlightMarker(incident)
+      this.scrollTo(incident.id)
+    })
+  },
 
-//   scrollTo(incidentId) {
-//     const incidentElement = document.querySelector(
-//       `[phx-value-id="${incidentId}"]`
-//     )
-//     // The bottom of the element will be aligned to the bottom of the area.
-//     incidentElement.scrollIntoView(false)
-//   }
-// }
+  scrollTo(incidentId) {
+    const incidentElement = document.querySelector(
+      `[phx-value-id="${incidentId}"]`
+    )
+    // The bottom of the element will be aligned to the bottom of the area.
+    incidentElement.scrollIntoView(false)
+  }
+}
 
 // Hooks.LineChart = {
 //   mounted() {

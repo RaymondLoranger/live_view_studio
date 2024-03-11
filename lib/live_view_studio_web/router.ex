@@ -28,6 +28,7 @@ defmodule LiveView.StudioWeb.Router do
     live "/donations/sort", DonationsLive, :sort
     live "/flights", FlightsLive
     live "/git-repos", GitReposLive
+    live "/incidents", IncidentsLive
     live "/juggling", JugglingLive
     live "/license", LicenseLive
     live "/light", LightLive

@@ -130,7 +130,9 @@ defmodule LiveView.StudioWeb do
         DonationsComponents,
         Endpoint,
         FlightsComponents,
+        Geo,
         GitReposComponents,
+        IncidentsComponents,
         JugglingComponents,
         LicenseComponents,
         LightComponents,
@@ -162,6 +164,7 @@ defmodule LiveView.StudioWeb do
         Donations,
         Flights,
         GitRepos,
+        Incidents,
         Licenses,
         PizzaOrders,
         Sales,
@@ -176,6 +179,7 @@ defmodule LiveView.StudioWeb do
       alias LiveView.Studio.Donations.Donation
       alias LiveView.Studio.Flights.Flight
       alias LiveView.Studio.GitRepos.GitRepo
+      alias LiveView.Studio.Incidents.Incident
       alias LiveView.Studio.PizzaOrders.PizzaOrder
       alias LiveView.Studio.Servers.Server
       alias LiveView.Studio.Stores.Store
