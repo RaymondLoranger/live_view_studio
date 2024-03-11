@@ -8,6 +8,18 @@ defmodule LiveView.StudioWeb.SandboxComponents do
     "Mason Sand": "mason sand",
     "River Sand": "river sand"
   ]
+  @label_class [
+    "block flex-1 pr-2 text-right text-base font-bold leading-5",
+    "text-gray-700 dark:text-gray-200"
+  ]
+  @field_class [
+    "form-input block w-full min-w-0 flex-1 rounded-md text-base leading-5",
+    "transition duration-150 ease-in-out",
+    "focus:border-indigo-300 focus:outline-none",
+    "focus:ring focus:ring-indigo-300",
+    "dark:bg-gray-200 dark:focus:border-orange-400 dark:focus:ring-orange-400"
+  ]
+  @unit_class "ml-2 flex-1 text-left text-gray-700 dark:text-gray-200"
 
   attr :header, :string, required: true
   attr :id, :string, required: true
@@ -140,14 +152,14 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   attr :unit, :string, required: true
   attr :min, :string, default: "1"
   attr :step, :string, default: "0.1"
+  attr :label_class, :list, default: @label_class
+  attr :field_class, :list, default: @field_class
+  attr :unit_class, :string, default: @unit_class
 
   def dim_field(assigns) do
     ~H"""
     <div class="flex items-center p-2">
-      <label
-        for={@name}
-        class="block flex-1 pr-2 text-right text-base font-bold leading-5 text-gray-700 dark:text-gray-200"
-      >
+      <label for={@name} class={@label_class}>
         <%= @label %>
       </label>
       <input
@@ -159,27 +171,37 @@ defmodule LiveView.StudioWeb.SandboxComponents do
         required={@required}
         placeholder={@placeholder}
         phx-debounce="250"
-        class="form-input block w-full min-w-0 flex-1 rounded-md text-base leading-5 transition duration-150 ease-in-out focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-300 dark:bg-gray-200 dark:focus:border-orange-400 dark:focus:ring-orange-400"
+        class={@field_class}
       />
-      <span class="ml-2 flex-1 text-left text-gray-700 dark:text-gray-200">
+      <span class={@unit_class}>
         <%= @unit %>
       </span>
     </div>
     """
   end
 
-  attr :material, :string, required: true
-  attr :material_options, :list, default: @material_options
+  attr :name, :string, required: true
+  attr :label, :string, required: true
+  attr :value, :string, required: true
+  attr :options, :list, default: @material_options
+  attr :unit, :string, required: true
+  attr :label_class, :list, default: @label_class
+  attr :field_class, :list, default: @field_class
+  attr :unit_class, :string, default: @unit_class
 
   def select_material(assigns) do
     ~H"""
-    <span class="text-white">Material:</span>
-    <select
-      name="material"
-      class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 mr-4 w-48 cursor-pointer appearance-none rounded-lg border px-4 py-3 font-semibold leading-tight"
-    >
-      <%= options_for_select(@material_options, @material) %>
-    </select>
+    <div class="flex items-center p-2">
+      <label for={@name} class={@label_class}>
+        <%= @label %>
+      </label>
+      <select name={@name} class={@field_class}>
+        <%= options_for_select(@options, @value) %>
+      </select>
+      <span class={@unit_class}>
+        <%= @unit %>
+      </span>
+    </div>
     """
   end
 

@@ -41,7 +41,12 @@ defmodule LiveView.StudioWeb.SandboxForm do
           value={@depth}
           unit="inches"
         />
-        <.select_material material={@material} />
+        <.select_material
+          name="material"
+          label="Material:"
+          value={@material}
+          unit="select"
+        />
         <.what_you_need weight={@weight} material={@material} />
         <.calculate_quote_button />
       </.sandbox_form>
