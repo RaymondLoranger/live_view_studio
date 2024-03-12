@@ -125,6 +125,7 @@ defmodule LiveView.StudioWeb do
     quote do
       alias LiveView.StudioWeb.{
         BoatsComponents,
+        ChartComponents,
         DatePickerComponents,
         DeskForm,
         DesksComponents,

@@ -1,4 +1,4 @@
-// import LineChart from './line-chart'
+import LineChart from './line-chart'
 import IncidentMap from './incident-map'
 import flatpickr from 'flatpickr'
 import { AsYouType } from 'libphonenumber-js'
@@ -100,16 +100,16 @@ Hooks.IncidentMap = {
   }
 }
 
-// Hooks.LineChart = {
-//   mounted() {
-//     const { labels, values } = JSON.parse(this.el.dataset.chart)
-//     // The element this hook is bound to is this.el...
-//     this.chart = new LineChart(this.el, labels, values)
-//     this.handleEvent('new-po-selected-serverint', ({ label, value }) => {
-//       this.chart.addPoint(label, value)
-//     })
-//   }
-// }
+Hooks.LineChart = {
+  mounted() {
+    const { labels, values } = JSON.parse(this.el.dataset.chart)
+    // The element this hook is bound to is this.el...
+    this.chart = new LineChart(this.el, labels, values)
+    this.handleEvent('new-point', ({ label, value }) => {
+      this.chart.addPoint(label, value)
+    })
+  }
+}
 
 // Define a mounted callback and instantiate a
 // flatpickr instance using this.el as the element.
