@@ -6,7 +6,7 @@ defmodule LiveView.StudioWeb.IncidentsLive do
   @spec mount(LV.unsigned_params(), map, Socket.t()) :: {:ok, Socket.t()}
   def mount(_params, _session, socket) do
     if connected?(socket), do: Incidents.subscribe()
-    incidents = Incidents.list_incidents()
+    incidents = Incidents.list_incidents_by_desc_id()
     # json_data = Jason.encode!(incidents)
 
     {:ok,
@@ -21,14 +21,15 @@ defmodule LiveView.StudioWeb.IncidentsLive do
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <.mapping>
-      <.incidents :let={incident} incidents={@incidents} update="replace">
+    <.incidents>
+      <.sidebar update="replace">
         <.incident
+          :for={incident <- @incidents}
           click="select-incident"
           incident={incident}
           selected={incident == @selected_incident}
         />
-      </.incidents>
+      </.sidebar>
 
       <.map_view>
         <.map_wrapper update="ignore">
@@ -39,7 +40,7 @@ defmodule LiveView.StudioWeb.IncidentsLive do
           <.map_button click="report-incident" />
         </.button_wrapper>
       </.map_view>
-    </.mapping>
+    </.incidents>
     """
   end
 
@@ -54,15 +55,17 @@ defmodule LiveView.StudioWeb.IncidentsLive do
      |> push_event("highlight-marker", incident)}
   end
 
-  def handle_event("get-incidents", _params, socket) do
-    {:reply, %{incidents: socket.assigns.incidents}, socket}
-  end
-
   def handle_event("report-incident", _params, socket) do
     Incidents.create_random_incident()
     {:noreply, socket}
   end
 
+  # Event "get-incidents" is pushed to the LiveView by the hook.
+  def handle_event("get-incidents", _params, socket) do
+    {:reply, %{incidents: socket.assigns.incidents}, socket}
+  end
+
+  # Event "marker-clicked" is pushed to the LiveView by the hook.
   def handle_event("marker-clicked", incident_id, socket) do
     incident = find_incident(socket, incident_id)
     {:reply, %{incident: incident}, assign(socket, selected_incident: incident)}

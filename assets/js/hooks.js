@@ -84,7 +84,7 @@ Hooks.IncidentMap = {
       this.map.highlightMarker(incident)
     })
 
-    this.handleEvent('add-ma-selected-serverrker', (incident) => {
+    this.handleEvent('add-marker', (incident) => {
       this.map.addMarker(incident)
       this.map.highlightMarker(incident)
       this.scrollTo(incident.id)

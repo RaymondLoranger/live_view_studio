@@ -4,13 +4,26 @@ defmodule LiveView.Studio.Incidents do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
   alias LiveView.Studio.Repo
 
   alias LiveView.Studio.{Geo, PubSub}
   alias LiveView.Studio.Incidents.Incident
 
   @topic inspect(__MODULE__)
+  @descriptions [
+    "🦊 Fox in the henhouse",
+    "🏢 Stuck in an elevator",
+    "🚦 Traffic lights out",
+    "🏎 Reckless driving",
+    "🐻 Bear in the trash",
+    "🤡 Disturbing the peace",
+    "🔥 BBQ fire",
+    "🙀 #{Faker.Cat.name()} stuck in a tree",
+    "🐶 #{Faker.Dog.PtBr.name()} on the loose"
+  ]
 
+  @spec subscribe :: :ok | {:error, term}
   def subscribe do
     Phoenix.PubSub.subscribe(PubSub, @topic)
   end
@@ -24,8 +37,13 @@ defmodule LiveView.Studio.Incidents do
       [%Incident{}, ...]
 
   """
+  @spec list_incidents :: [%Incident{}]
   def list_incidents do
-    # Repo.all(Incident)
+    Repo.all(Incident)
+  end
+
+  @spec list_incidents_by_desc_id :: [%Incident{}]
+  def list_incidents_by_desc_id do
     Repo.all(from i in Incident, order_by: [desc: i.id])
   end
 
@@ -43,10 +61,11 @@ defmodule LiveView.Studio.Incidents do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_incident!(integer | binary) :: %Incident{}
   def get_incident!(id), do: Repo.get!(Incident, id)
 
   @doc """
-  Creates a incident.
+  Creates an incident.
 
   ## Examples
 
@@ -57,6 +76,7 @@ defmodule LiveView.Studio.Incidents do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_incident(map) :: {:ok, %Incident{}} | {:error, %Changeset{}}
   def create_incident(attrs \\ %{}) do
     %Incident{}
     |> Incident.changeset(attrs)
@@ -73,19 +93,8 @@ defmodule LiveView.Studio.Incidents do
       {:ok, %Incident{}}
 
   """
+  @spec create_random_incident :: {:ok, %Incident{}}
   def create_random_incident do
-    descriptions = [
-      "🦊 Fox in the henhouse",
-      "🏢 Stuck in an elevator",
-      "🚦 Traffic lights out",
-      "🏎 Reckless driving",
-      "🐻 Bear in the trash",
-      "🤡 Disturbing the peace",
-      "🔥 BBQ fire",
-      "🙀 #{Faker.Cat.name()} stuck in a tree",
-      "🐶 #{Faker.Dog.PtBr.name()} on the loose"
-    ]
-
     # {lat, lng} = Geo.randomDenverLatLng()
     {lat, lng} = Geo.randomMontrealLatLng()
 
@@ -93,12 +102,12 @@ defmodule LiveView.Studio.Incidents do
       create_incident(%{
         lat: lat,
         lng: lng,
-        description: Enum.random(descriptions)
+        description: Enum.random(@descriptions)
       })
   end
 
   @doc """
-  Updates a incident.
+  Updates an incident.
 
   ## Examples
 
@@ -109,6 +118,8 @@ defmodule LiveView.Studio.Incidents do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_incident(%Incident{}, map) ::
+          {:ok, %Incident{}} | {:error, %Changeset{}}
   def update_incident(%Incident{} = incident, attrs) do
     incident
     |> Incident.changeset(attrs)
@@ -117,7 +128,7 @@ defmodule LiveView.Studio.Incidents do
   end
 
   @doc """
-  Deletes a incident.
+  Deletes an incident.
 
   ## Examples
 
@@ -128,6 +139,8 @@ defmodule LiveView.Studio.Incidents do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_incident(%Incident{}) ::
+          {:ok, %Incident{}} | {:error, %Changeset{}}
   def delete_incident(%Incident{} = incident) do
     Repo.delete(incident)
   end
@@ -141,12 +154,15 @@ defmodule LiveView.Studio.Incidents do
       %Ecto.Changeset{data: %Incident{}}
 
   """
+  @spec change_incident(%Incident{}, map) :: %Changeset{}
   def change_incident(%Incident{} = incident, attrs \\ %{}) do
     Incident.changeset(incident, attrs)
   end
 
   ## Private functions
 
+  @spec broadcast({:ok, %Incident{}} | {:error, %Changeset{}}, atom) ::
+          {:ok, %Incident{}} | {:error, %Changeset{}}
   defp broadcast({:ok, incident}, event) do
     Phoenix.PubSub.broadcast(PubSub, @topic, {__MODULE__, event, incident})
     {:ok, incident}

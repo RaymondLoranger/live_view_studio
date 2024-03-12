@@ -3,32 +3,37 @@ defmodule LiveView.StudioWeb.IncidentsComponents do
 
   slot :inner_block, required: true
 
-  @spec mapping(Socket.assigns()) :: Rendered.t()
-  def mapping(assigns) do
+  @spec incidents(Socket.assigns()) :: Rendered.t()
+  def incidents(assigns) do
     ~H"""
     <.header inner_class="text-center text-cool-gray-900 font-extrabold text-4xl mb-8">
       Nearby Incidents
     </.header>
 
-    <div id="mapping" class="flex">
+    <div id="incidents" class="flex">
       <%= render_slot(@inner_block) %>
     </div>
     """
   end
 
-  def incidents(assigns) do
+  attr :update, :string, required: true
+  slot :inner_block, required: true
+
+  def sidebar(assigns) do
     ~H"""
     <div
       id="sidebar"
       phx-update={@update}
       class="h-[575px] w-1/3 overflow-auto shadow-md"
     >
-      <%= for incident <- @incidents do %>
-        <%= render_slot(@inner_block, incident) %>
-      <% end %>
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end
+
+  attr :selected, :boolean, required: true
+  attr :click, :string, required: true
+  attr :incident, Incident, required: true
 
   # See 'tailwind.config.js' for variant 'selected'.
   def incident(assigns) do
@@ -37,7 +42,11 @@ defmodule LiveView.StudioWeb.IncidentsComponents do
       selected={@selected}
       phx-click={@click}
       phx-value-id={@incident.id}
-      class="border-cool-gray-300 text-cool-gray-800 border-b bg-white p-4 text-base font-bold selected:bg-yellow-100 hover:cursor-pointer hover:bg-indigo-200"
+      class={[
+        "border-cool-gray-300 border-b bg-white p-4",
+        "text-cool-gray-800 text-base font-bold",
+        "selected:bg-yellow-100 hover:cursor-pointer hover:bg-indigo-200"
+      ]}
     >
       <%= @incident.description %>
     </div>
@@ -54,13 +63,18 @@ defmodule LiveView.StudioWeb.IncidentsComponents do
     """
   end
 
+  attr :update, :string, required: true
+  slot :inner_block, required: true
+
   def map_wrapper(assigns) do
     ~H"""
-    <div id="wrapper" phx-update={@update}>
+    <div id="map-wrapper" phx-update={@update}>
       <%= render_slot(@inner_block) %>
     </div>
     """
   end
+
+  attr :hook, :string, required: true
 
   def map(assigns) do
     ~H"""
@@ -72,11 +86,13 @@ defmodule LiveView.StudioWeb.IncidentsComponents do
 
   def button_wrapper(assigns) do
     ~H"""
-    <div class="text-center">
+    <div id="button-wrapper" class="text-center">
       <%= render_slot(@inner_block) %>
     </div>
     """
   end
+
+  attr :click, :string, required: true
 
   def map_button(assigns) do
     ~H"""
