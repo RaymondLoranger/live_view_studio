@@ -45,7 +45,7 @@ defmodule LiveView.StudioWeb.IncidentsLive do
   end
 
   @spec handle_event(event :: binary, LV.unsigned_params(), Socket.t()) ::
-          {:noreply, Socket.t()}
+          {:noreply, Socket.t()} | {:reply, map, Socket.t()}
   def handle_event("select-incident", %{"id" => id}, socket) do
     incident = find_incident(socket, String.to_integer(id))
 
@@ -66,8 +66,8 @@ defmodule LiveView.StudioWeb.IncidentsLive do
   end
 
   # Event "marker-clicked" is pushed to the LiveView by the hook.
-  def handle_event("marker-clicked", incident_id, socket) do
-    incident = find_incident(socket, incident_id)
+  def handle_event("marker-clicked", %{"incidentId" => id} = _params, socket) do
+    incident = find_incident(socket, id)
     {:reply, %{incident: incident}, assign(socket, selected_incident: incident)}
   end
 

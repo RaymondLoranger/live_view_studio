@@ -22,6 +22,7 @@ defmodule LiveView.StudioWeb.Router do
 
     live "/", TOCLive # Table of Contents
     live "/boats", BoatsLive
+    live "/datepicker", DatePickerLive
     live "/desks", DesksLive
     live "/donations", DonationsLive, :paginate
     live "/donations/paginate", DonationsLive, :paginate
