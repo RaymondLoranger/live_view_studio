@@ -82,7 +82,7 @@ defmodule LiveView.StudioWeb.LightComponents do
   attr :focus, :string, required: true
   attr :blur, :string, required: true
 
-  # ArrowKey will change the slider value by ±1 when it has focus.
+  # Any arrow key will change the slider value by ±1 when it has focus.
   def slider(assigns) do
     ~H"""
     <form phx-change={@change} class="mx-auto mt-11 w-full">
@@ -105,6 +105,7 @@ defmodule LiveView.StudioWeb.LightComponents do
   attr :temps, :list, required: true
 
   # ArrowLeft/ArrowRight will switch radio button when one has focus.
+  # ArrowUp/ArrowDown are prevented to do so by the 'onkeydown' code.
   def selector(assigns) do
     ~H"""
     <form
@@ -117,6 +118,7 @@ defmodule LiveView.StudioWeb.LightComponents do
         class="flex items-center justify-center gap-2"
       >
         <%!-- 'checked' removed when @checked is false --%>
+        <%!-- Prevent ArrowUp/ArrowDown keys from switching radio button --%>
         <input
           class="w-4"
           type="radio"
@@ -124,7 +126,7 @@ defmodule LiveView.StudioWeb.LightComponents do
           name="temp"
           value={temp}
           checked={temp == @temp}
-          onKeyDown="return !['ArrowUp', 'ArrowDown'].includes(event.key);"
+          onkeydown="return !['ArrowUp', 'ArrowDown'].includes(event.key);"
         />
         <label
           for={"temp-#{temp}"}

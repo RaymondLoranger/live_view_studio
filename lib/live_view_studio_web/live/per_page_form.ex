@@ -10,6 +10,7 @@ defmodule LiveView.StudioWeb.PerPageForm do
       phx-window-keydown="paginate"
       phx-throttle="300"
     >
+      <%!-- Prevent ArrowLeft/ArrowRight keys from selecting options --%>
       <form
         id={@id}
         phx-change="select-per-page"
@@ -19,7 +20,7 @@ defmodule LiveView.StudioWeb.PerPageForm do
         Show
         <select
           name="per-page"
-          onKeyDown="return !['ArrowLeft', 'ArrowRight'].includes(event.key);"
+          onkeydown="return !['ArrowLeft', 'ArrowRight'].includes(event.key);"
           class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 mx-1 w-14 cursor-pointer appearance-none rounded-lg border px-2 py-1 text-sm font-semibold leading-tight hover:border-indigo-500 hover:bg-indigo-200 focus:bg-blue-200 focus:outline-none"
         >
           <%= options_for_select([5, 10, 15, 20], @options.per_page) %>

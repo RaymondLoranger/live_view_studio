@@ -132,11 +132,12 @@ defmodule LiveView.StudioWeb.SandboxComponents do
   @spec zip_form(Socket.assigns()) :: Rendered.t()
   def zip_form(assigns) do
     ~H"""
+    <%!-- Prevent the Enter key from submitting the form --%>
     <form
       id={@id}
       phx-target={@target}
       phx-change={@change}
-      onKeyDown="return event.key != 'Enter';"
+      onkeydown="return event.key != 'Enter';"
       class="mx-auto mb-6 rounded-md border border-gray-300 bg-white p-4 text-center shadow-lg dark:bg-gray-600"
     >
       <%= render_slot(@inner_block) %>

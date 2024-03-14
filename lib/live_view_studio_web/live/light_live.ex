@@ -10,10 +10,10 @@ defmodule LiveView.StudioWeb.LightLive do
     {:ok,
      assign(socket,
        page_title: "Light",
-       brightness: 10,
-       temp: hd(@temps),
+       brightness: Enum.random(10..90),
+       temp: Enum.random(@temps),
        temps: @temps,
-       # Slider blurred?
+       # Initially slider is blurred...
        blur: true
      )}
   end
