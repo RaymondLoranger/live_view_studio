@@ -37,6 +37,9 @@ module.exports = {
           DEFAULT: '#ffefd5',
           dark: '#fee5bc'
         }
+      },
+      transitionProperty: {
+        width: 'width'
       }
     }
   },
