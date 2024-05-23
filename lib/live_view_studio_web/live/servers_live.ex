@@ -121,7 +121,7 @@ defmodule LiveView.StudioWeb.ServersLive do
     assign(socket, page_title: "New Server")
   end
 
-  defp apply_action(socket, _action = nil, _params = %{"id" => id}) do
+  defp apply_action(socket, nil = _action, %{"id" => id} = _params) do
     server = Servers.get_server!(id)
 
     socket
@@ -135,7 +135,7 @@ defmodule LiveView.StudioWeb.ServersLive do
     )
   end
 
-  defp apply_action(socket, _action = nil, _params) do
+  defp apply_action(socket, nil = _action, _params) do
     assign(socket, page_title: "Servers")
   end
 

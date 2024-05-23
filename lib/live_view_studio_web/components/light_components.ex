@@ -11,8 +11,8 @@ defmodule LiveView.StudioWeb.LightComponents do
   def light(assigns) do
     ~H"""
     <.header
-      inner_class="text-center text-cool-gray-900 font-extrabold text-4xl mb-6"
-      subtitle_class="text-lg font-medium text-cool-gray-700 text-center mb-4"
+      inner_class="text-cool-gray-900 mb-6 text-center text-4xl font-extrabold"
+      subtitle_class="text-cool-gray-700 mb-4 text-center text-lg font-medium"
     >
       <%= @header %>
       <:subtitle>
@@ -20,13 +20,13 @@ defmodule LiveView.StudioWeb.LightComponents do
       </:subtitle>
     </.header>
 
-    <div
+    <section
       id={@id}
       phx-window-keyup={@keyup}
       class="mx-auto mb-10 max-w-xl rounded-xl border-2 border-double border-slate-400 bg-slate-100 p-10 text-center"
     >
       <%= render_slot(@inner_block) %>
-    </div>
+    </section>
     """
   end
 
@@ -45,7 +45,7 @@ defmodule LiveView.StudioWeb.LightComponents do
         c5={@temp == 5000}
         c6={@temp == 6000}
         class={[
-          "text-cool-gray-900 transition-width flex flex-col justify-center whitespace-nowrap text-center font-bold duration-1000 ease-in-out",
+          "text-cool-gray-900 transition-width flex flex-col justify-center whitespace-nowrap font-bold duration-1000 ease-in-out",
           "c3:bg-[#F1C40D] hover:c3:bg-[#f7dc6e]",
           "c4:bg-[#00ff99] hover:c4:bg-[#80ffcc]",
           "c5:bg-[#99CCFF] hover:c5:bg-[#cce6ff]",
@@ -70,7 +70,7 @@ defmodule LiveView.StudioWeb.LightComponents do
       title={@click}
       phx-click={@click}
       disabled={@disabled}
-      class="border-cool-gray-400 m-1 rounded-lg border-2 bg-transparent px-4 py-2 shadow-sm outline-none transition duration-700 ease-in-out hover:bg-cool-gray-300 focus:border-indigo-600 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+      class="border-cool-gray-400 m-1 rounded-lg border-2 bg-transparent px-4 py-2 shadow-lg outline-none transition duration-700 ease-in-out hover:bg-cool-gray-300 focus:border-indigo-600 disabled:cursor-not-allowed disabled:opacity-50"
     >
       <img class="w-10" src={"/images/#{@svg}.svg"} />
     </button>
@@ -113,7 +113,7 @@ defmodule LiveView.StudioWeb.LightComponents do
       phx-change={@change}
       class="mx-auto mt-11 flex flex-col items-center justify-evenly gap-2 md:flex-row"
     >
-      <div
+      <fieldset
         :for={temp <- @temps}
         class="flex items-center justify-center gap-2"
       >
@@ -144,7 +144,7 @@ defmodule LiveView.StudioWeb.LightComponents do
         >
           <%= temp %>℃
         </label>
-      </div>
+      </fieldset>
     </form>
     """
   end

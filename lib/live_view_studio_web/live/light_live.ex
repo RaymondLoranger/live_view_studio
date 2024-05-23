@@ -4,14 +4,15 @@ defmodule LiveView.StudioWeb.LightLive do
   import LightComponents
 
   @temps [3000, 4000, 5000, 6000]
+  @init_temp List.first(@temps)
 
   @spec mount(LV.unsigned_params(), map, Socket.t()) :: {:ok, Socket.t()}
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
        page_title: "Light",
-       brightness: Enum.random(10..90),
-       temp: Enum.random(@temps),
+       brightness: 10,
+       temp: @init_temp,
        temps: @temps,
        # Initially slider is blurred...
        blur: true
@@ -22,7 +23,7 @@ defmodule LiveView.StudioWeb.LightLive do
   def render(assigns) do
     ~H"""
     <.light
-      id="front-porch-light"
+      id="light"
       keyup="update"
       header="💡 Front Porch Light 💡"
       subtitle="⇑ = up, ⇓ = down"
