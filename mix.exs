@@ -4,7 +4,7 @@ defmodule LiveView.Studio.MixProject do
   def project do
     [
       app: :live_view_studio,
-      version: "0.1.23",
+      version: "0.1.24",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -49,7 +49,7 @@ defmodule LiveView.Studio.MixProject do
        app: false,
        compile: false,
        depth: 1},
-      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
