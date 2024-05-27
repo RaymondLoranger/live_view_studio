@@ -5,7 +5,7 @@ defmodule LiveView.StudioWeb.SandboxLive do
 
   @spec mount(LV.unsigned_params(), map, Socket.t()) :: {:ok, Socket.t()}
   def mount(_params, _session, socket) do
-    socket = assign(socket, weight: nil, price: nil, fee: 0.0, material: nil)
+    socket = assign(socket, fee: 0.0, weight: nil)
     {:ok, assign(socket, page_title: "Sandbox")}
   end
 
@@ -33,6 +33,10 @@ defmodule LiveView.StudioWeb.SandboxLive do
   end
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
+  def handle_info({SandboxForm, :form_change}, socket) do
+    {:noreply, assign(socket, weight: nil)}
+  end
+
   def handle_info({SandboxForm, :totals, weight, price, material}, socket) do
     {:noreply, assign(socket, weight: weight, price: price, material: material)}
   end

@@ -61,7 +61,9 @@ defmodule LiveView.StudioWeb.SandboxForm do
         %{"length" => l, "width" => w, "depth" => d, "material" => m} = _params,
         socket
       ) do
-    send(self(), {__MODULE__, :totals, nil, nil, nil})
+    # Signal a form change event...
+    send(self(), {__MODULE__, :form_change})
+    # A 'nil' dim will be passed as "" giving a weight of 0.0...
     weight = Sandbox.calculate_weight(l, w, d)
 
     {:noreply,
@@ -73,6 +75,7 @@ defmodule LiveView.StudioWeb.SandboxForm do
         _params,
         %Socket{assigns: %{weight: weight, material: material}} = socket
       ) do
+    # Here we have a weight > 0.0 as all 3 dim fields are required...
     price = Sandbox.calculate_price(weight)
     send(self(), {__MODULE__, :totals, weight, price, material})
     {:noreply, socket}

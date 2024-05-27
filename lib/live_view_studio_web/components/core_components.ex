@@ -534,7 +534,9 @@ defmodule LiveView.StudioWeb.CoreComponents do
           <%= render_slot(@subtitle) %>
         </p>
       </div>
-      <div class="flex-none"><%= render_slot(@actions) %></div>
+      <div :if={@actions != []} class="flex-none">
+        <%= render_slot(@actions) %>
+      </div>
     </header>
     """
   end

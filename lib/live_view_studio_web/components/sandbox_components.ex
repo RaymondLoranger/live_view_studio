@@ -32,7 +32,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
       <%= @header %>
     </.header>
 
-    <div id={@id} class="mx-auto mb-8 max-w-xl">
+    <div id={@id} class="mx-auto max-w-xl">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -52,7 +52,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
       |> assign_new(:hrs_until_expires, fn -> Enum.random(24..6//-6) end)
 
     ~H"""
-    <div
+    <section
       c1={@color == "green-700"}
       c2={@color == "blue-800"}
       c3={@color == "indigo-600"}
@@ -70,6 +70,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
       <h2 class="mb-2 text-2xl">
         Our Best Deal:
       </h2>
+
       <div
         c1={@color == "green-700"}
         c2={@color == "blue-800"}
@@ -91,14 +92,15 @@ defmodule LiveView.StudioWeb.SandboxComponents do
           </span>
           for <%= number_to_currency(@price) %>
         </h3>
-        <h4 class="text-xl font-semibold">
+        <h4 class="text-lg font-medium">
           plus <%= number_to_currency(@fee) %> for delivery 🚚
         </h4>
       </div>
-      <div class="text-gray-600">
+
+      <h5 class="text-gray-600">
         expires in <%= @hrs_until_expires %> hours
-      </div>
-    </div>
+      </h5>
+    </section>
     """
   end
 
@@ -224,7 +226,7 @@ defmodule LiveView.StudioWeb.SandboxComponents do
     ~H"""
     <button
       type="submit"
-      class="mt-6 rounded-md border border-transparent bg-green-500 px-4 py-2 text-lg font-semibold text-white outline-none transition duration-150 ease-in-out hover:bg-green-600 focus:border-green-600 focus:outline-none focus:ring focus:ring-green-300"
+      class="mt-6 rounded-md border border-transparent bg-green-500 px-4 py-2 text-lg font-semibold text-white outline-none transition duration-150 ease-in-out hover:bg-green-600 focus:border-green-700 focus:outline-none focus:ring focus:ring-green-200"
     >
       Calculate Quote
     </button>

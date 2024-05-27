@@ -13,9 +13,11 @@ defmodule LiveView.StudioWeb.TOCComponents do
     <section class="bg-cool-gray-400 mx-12 mt-0 mb-4 rounded-md px-4 py-8 text-center">
       <h1 class={[
         "mb-4 text-center text-4xl font-medium text-blue-900",
-        "underline decoration-wavy hover:opacity-70"
+        "underline decoration-wavy hover:decoration-double hover:opacity-70"
       ]}>
-        <%= gettext("Welcome to %{name}!", name: "Phoenix") %>
+        <.link navigate={~p"/home"}>
+          <%= gettext("Welcome to %{name}!", name: "Phoenix") %>
+        </.link>
       </h1>
       <p class="mb-8 text-lg font-normal hover:opacity-70">
         Peace of mind from prototype to production

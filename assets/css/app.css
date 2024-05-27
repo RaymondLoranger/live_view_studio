@@ -8,9 +8,9 @@
  * └──────────────────────────┘
  */
 
-#mapping #view .leaflet-popup-content-wrapper .leaflet-popup-content {
+/* #mapping #view .leaflet-popup-content-wrapper .leaflet-popup-content {
   @apply text-base;
-}
+} */
 
 /*
  * ┌──────────────────────┐
@@ -139,7 +139,7 @@
  * └───────────────────────────────────┘
  */
 
- .form-input {
+ /* .form-input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -153,33 +153,33 @@
   padding-left: 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-}
+} */
 
-.form-input::-moz-placeholder {
+/* .form-input::-moz-placeholder {
   color: #9fa6b2;
   opacity: 1;
-}
+} */
 
-.form-input:-ms-input-placeholder {
+/* .form-input:-ms-input-placeholder {
   color: #9fa6b2;
   opacity: 1;
-}
+} */
 
-.form-input::-ms-input-placeholder {
+/* .form-input::-ms-input-placeholder {
   color: #9fa6b2;
   opacity: 1;
-}
+} */
 
-.form-input::placeholder {
+/* .form-input::placeholder {
   color: #9fa6b2;
   opacity: 1;
-}
+} */
 
-.form-input:focus {
+/* .form-input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
   border-color: #a4cafe;
-}
+} */
 
 /*
  * ┌─────────────────────────────────┐
