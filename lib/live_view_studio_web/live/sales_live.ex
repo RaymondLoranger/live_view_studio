@@ -61,7 +61,7 @@ defmodule LiveView.StudioWeb.SalesLive do
 
   @spec schedule_refresh(atom, Socket.t()) :: reference
   defp schedule_refresh(msg, %Socket{assigns: %{refresh: refresh}} = _socket) do
-    # :timer.send_interval/3 continues sending messages on the given interval
+    # :timer.send_interval/3 continues to send a message at a given interval
     # while Process.send_after/3 sends a single message after a certain time.
     Process.send_after(self(), msg, refresh * 1000)
   end
