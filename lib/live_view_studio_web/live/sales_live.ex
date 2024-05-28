@@ -6,14 +6,14 @@ defmodule LiveView.StudioWeb.SalesLive do
   @spec mount(LV.unsigned_params(), map, Socket.t()) :: {:ok, Socket.t()}
   def mount(_params, _session, socket) do
     socket = assign_stats(socket) |> assign(refresh: 5, page_title: "Sales")
-    if connected?(socket), do: schedule_refresh(:tick, socket)
+    if connected?(socket), do: schedule_refresh(socket)
     {:ok, socket}
   end
 
   @spec render(Socket.assigns()) :: Rendered.t()
   def render(assigns) do
     ~H"""
-    <.sales header="Snappy Sales 📊">
+    <.sales id="sales" header="Snappy Sales 📊">
       <.stats>
         <.stat label="New Orders" id="orders" value={@new_orders} />
         <.stat label="Sales Amount" id="amount" value={"$#{@sales_amount}"} />
@@ -24,7 +24,7 @@ defmodule LiveView.StudioWeb.SalesLive do
         <.controls id="controls">
           <.refresh_form id="refresh-form" change="select-refresh">
             <.refresh_label for="refresh" />
-            <.select name="refresh" refresh={@refresh} />
+            <.refresh_select name="refresh" refresh={@refresh} />
           </.refresh_form>
 
           <.refresh_button click="refresh" />
@@ -48,7 +48,7 @@ defmodule LiveView.StudioWeb.SalesLive do
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
   def handle_info(:tick, socket) do
-    schedule_refresh(:tick, socket)
+    schedule_refresh(socket)
     {:noreply, assign_stats(socket)}
   end
 
@@ -59,11 +59,11 @@ defmodule LiveView.StudioWeb.SalesLive do
 
   ## Private functions
 
-  @spec schedule_refresh(atom, Socket.t()) :: reference
-  defp schedule_refresh(msg, %Socket{assigns: %{refresh: refresh}} = _socket) do
+  @spec schedule_refresh(Socket.t()) :: reference
+  defp schedule_refresh(%Socket{assigns: %{refresh: refresh}} = _socket) do
     # :timer.send_interval/3 continues to send a message at a given interval
     # while Process.send_after/3 sends a single message after a certain time.
-    Process.send_after(self(), msg, refresh * 1000)
+    Process.send_after(self(), :tick, refresh * 1000)
   end
 
   @spec assign_stats(Socket.t()) :: Socket.t()

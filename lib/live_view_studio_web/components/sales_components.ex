@@ -2,6 +2,7 @@ defmodule LiveView.StudioWeb.SalesComponents do
   use LiveView.StudioWeb, [:html, :imports, :aliases]
 
   attr :header, :string, required: true
+  attr :id, :string, required: true
   slot :inner_block, required: true
 
   @spec sales(Socket.assigns()) :: Rendered.t()
@@ -11,7 +12,7 @@ defmodule LiveView.StudioWeb.SalesComponents do
       <%= @header %>
     </.header>
 
-    <div id="sales" class="mx-auto max-w-2xl">
+    <div id={@id} class="mx-auto max-w-2xl">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -23,7 +24,11 @@ defmodule LiveView.StudioWeb.SalesComponents do
     ~H"""
     <div
       id="stats"
-      class="mb-8 grid grid-cols-3 justify-items-center rounded-lg bg-white shadow-lg dark:bg-cool-gray-600"
+      class={[
+        "mb-8 grid grid-cols-3 justify-items-center rounded-lg shadow-lg",
+        "bg-white",
+        "dark:bg-cool-gray-600"
+      ]}
     >
       <%= render_slot(@inner_block) %>
     </div>
@@ -39,13 +44,21 @@ defmodule LiveView.StudioWeb.SalesComponents do
     <div class="px-4 py-6 text-center">
       <span
         id={@id}
-        class="block text-xl font-extrabold leading-none text-indigo-600 dark:text-indigo-300 sm:text-5xl"
+        class={[
+          "block text-xl font-extrabold leading-none sm:text-5xl",
+          "text-indigo-600",
+          "dark:text-indigo-300"
+        ]}
       >
         <%= @value %>
       </span>
       <span
         id={"#{@id}-label"}
-        class="text-cool-gray-500 mt-2 block text-base font-medium leading-6 dark:text-cool-gray-200 sm:text-lg"
+        class={[
+          "mt-2 block text-base font-medium sm:text-lg",
+          "text-cool-gray-500",
+          "dark:text-cool-gray-200"
+        ]}
       >
         <%= @label %>
       </span>
@@ -92,15 +105,16 @@ defmodule LiveView.StudioWeb.SalesComponents do
   attr :name, :string, required: true
   attr :refresh, :integer, required: true
 
-  def select(assigns) do
+  def refresh_select(assigns) do
     ~H"""
     <select
       name={@name}
       autofocus="true"
       class={[
-        "mr-2 h-10 w-20 cursor-pointer rounded-lg border border-indigo-300 px-4 py-2 font-semibold leading-tight text-indigo-700 focus:border-indigo-500",
-        "bg-cool-gray-200 hover:bg-cool-gray-300",
-        "dark:bg-cool-gray-300 dark:hover:bg-cool-gray-100"
+        "mr-2 h-10 w-20 cursor-pointer rounded-lg border px-4 py-2 font-semibold leading-tight",
+        "border-indigo-300 text-indigo-700",
+        "bg-indigo-50 hover:bg-indigo-100 focus:border-indigo-500 active:bg-indigo-200",
+        "focus:border-indigo-600 active:bg-indigo-300 dark:bg-indigo-100 dark:hover:bg-indigo-200"
       ]}
     >
       <%= options_for_select(refresh_options(), @refresh) %>
@@ -114,7 +128,12 @@ defmodule LiveView.StudioWeb.SalesComponents do
     ~H"""
     <button
       phx-click={@click}
-      class="inline-flex items-center rounded-lg border-2 border-indigo-300 bg-indigo-100 px-4 py-2 text-sm font-medium leading-6 text-indigo-700 shadow-sm outline-none transition duration-150 ease-in-out hover:bg-white focus:border-indigo-600 active:bg-indigo-200"
+      class={[
+        "inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium leading-6 shadow-sm outline-none transition duration-150 ease-in-out",
+        "border-indigo-300 text-indigo-700",
+        "bg-indigo-50 hover:bg-indigo-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 active:bg-indigo-200",
+        "dark:bg-indigo-100 dark:hover:bg-indigo-200 dark:focus:border-indigo-600 dark:focus:ring-1 dark:focus:ring-indigo-600 dark:active:bg-indigo-300"
+      ]}
     >
       <img class="mr-2 h-4 w-4" src="/images/refresh.svg" /> Refresh
     </button>
