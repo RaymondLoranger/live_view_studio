@@ -98,7 +98,7 @@ defmodule LiveView.StudioWeb.SalesComponents do
       name={@name}
       autofocus="true"
       class={[
-        "mr-2 h-10 w-20 cursor-pointer rounded-lg border border-indigo-300 px-4 py-2 font-semibold leading-tight text-indigo-700  focus:border-indigo-500",
+        "mr-2 h-10 w-20 cursor-pointer rounded-lg border border-indigo-300 px-4 py-2 font-semibold leading-tight text-indigo-700 focus:border-indigo-500",
         "bg-cool-gray-200 hover:bg-cool-gray-300",
         "dark:bg-cool-gray-300 dark:hover:bg-cool-gray-100"
       ]}
