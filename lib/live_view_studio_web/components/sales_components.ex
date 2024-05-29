@@ -114,8 +114,8 @@ defmodule LiveView.StudioWeb.SalesComponents do
       class={[
         "mr-2 h-10 w-20 cursor-pointer rounded-lg border px-4 py-2 font-semibold leading-tight",
         "border-indigo-300 text-indigo-700",
-        "bg-indigo-50 hover:ring-1 hover:ring-indigo-500 hover:border-indigo-500 hover:ring-offset-1 focus:border-indigo-500",
-        "dark:bg-indigo-100 dark:hover:ring-1 dark:hover:ring-indigo-600 dark:hover:border-indigo-600 dark:hover:ring-offset-1 dark:focus:border-indigo-600"
+        "bg-indigo-50 hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 hover:ring-offset-1 focus:border-indigo-500",
+        "dark:bg-indigo-100 dark:hover:border-indigo-600 dark:hover:ring-1 dark:hover:ring-indigo-600 dark:hover:ring-offset-1 dark:focus:border-indigo-600"
       ]}
     >
       <%= options_for_select(@refresh_options, @refresh) %>
@@ -132,8 +132,8 @@ defmodule LiveView.StudioWeb.SalesComponents do
       class={[
         "inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium leading-6 shadow-sm outline-none",
         "border-indigo-300 text-indigo-700",
-        "bg-indigo-50 hover:ring-1 hover:ring-indigo-500 hover:border-indigo-500 hover:ring-offset-1 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 active:bg-indigo-200",
-        "dark:bg-indigo-100 dark:hover:ring-1 dark:hover:ring-indigo-600 dark:hover:border-indigo-600 dark:hover:ring-offset-1 dark:focus:border-indigo-600 dark:focus:ring-1 dark:focus:ring-indigo-600 dark:active:bg-indigo-200"
+        "bg-indigo-50 hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 hover:ring-offset-1 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 active:bg-indigo-200",
+        "dark:bg-indigo-100 dark:hover:border-indigo-600 dark:hover:ring-1 dark:hover:ring-indigo-600 dark:hover:ring-offset-1 dark:focus:border-indigo-600 dark:focus:ring-1 dark:focus:ring-indigo-600 dark:active:bg-indigo-200"
       ]}
     >
       <img class="mr-2 h-4 w-4" src="/images/refresh.svg" /> Refresh
