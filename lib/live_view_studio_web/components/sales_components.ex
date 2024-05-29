@@ -103,6 +103,7 @@ defmodule LiveView.StudioWeb.SalesComponents do
   end
 
   attr :name, :string, required: true
+  attr :refresh_options, :list, required: true
   attr :refresh, :integer, required: true
 
   def refresh_select(assigns) do
@@ -114,10 +115,10 @@ defmodule LiveView.StudioWeb.SalesComponents do
         "mr-2 h-10 w-20 cursor-pointer rounded-lg border px-4 py-2 font-semibold leading-tight",
         "border-indigo-300 text-indigo-700",
         "bg-indigo-50 hover:bg-indigo-100 focus:border-indigo-500 active:bg-indigo-200",
-        "focus:border-indigo-600 active:bg-indigo-300 dark:bg-indigo-100 dark:hover:bg-indigo-200"
+        "dark:bg-indigo-100 dark:hover:bg-indigo-200 dark:focus:border-indigo-600 dark:active:bg-indigo-300"
       ]}
     >
-      <%= options_for_select(refresh_options(), @refresh) %>
+      <%= options_for_select(@refresh_options, @refresh) %>
     </select>
     """
   end
@@ -129,7 +130,7 @@ defmodule LiveView.StudioWeb.SalesComponents do
     <button
       phx-click={@click}
       class={[
-        "inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium leading-6 shadow-sm outline-none transition duration-150 ease-in-out",
+        "inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium leading-6 shadow-sm outline-none",
         "border-indigo-300 text-indigo-700",
         "bg-indigo-50 hover:bg-indigo-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 active:bg-indigo-200",
         "dark:bg-indigo-100 dark:hover:bg-indigo-200 dark:focus:border-indigo-600 dark:focus:ring-1 dark:focus:ring-indigo-600 dark:active:bg-indigo-300"
@@ -140,25 +141,13 @@ defmodule LiveView.StudioWeb.SalesComponents do
     """
   end
 
-  attr :last_update, DateTime, required: true
+  attr :last_updated_at, :string, required: true
 
   def last_update(assigns) do
     ~H"""
     <p class="mt-2 text-right text-sm text-indigo-800">
-      last updated at: <%= format_time(@last_update) %>
+      last updated at: <%= @last_updated_at %>
     </p>
     """
-  end
-
-  ## Private functions
-
-  @spec refresh_options :: [tuple]
-  defp refresh_options do
-    [{"1s", 1}, {"5s", 5}, {"15s", 15}, {"30s", 30}, {"60s", 60}]
-  end
-
-  @spec format_time(DateTime.t()) :: String.t()
-  defp format_time(time) do
-    Timex.format!(time, "%H:%M:%S", :strftime)
   end
 end

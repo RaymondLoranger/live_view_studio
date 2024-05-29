@@ -3,9 +3,20 @@ defmodule LiveView.StudioWeb.SalesLive do
 
   import SalesComponents
 
+  @ny "America/New_York"
+  @refresh_options [{"1s", 1}, {"5s", 5}, {"15s", 15}, {"30s", 30}, {"60s", 60}]
+
   @spec mount(LV.unsigned_params(), map, Socket.t()) :: {:ok, Socket.t()}
   def mount(_params, _session, socket) do
-    socket = assign_stats(socket) |> assign(refresh: 5, page_title: "Sales")
+    socket =
+      socket
+      |> assign_stats()
+      |> assign(
+        refresh_options: @refresh_options,
+        refresh: 5,
+        page_title: "Sales"
+      )
+
     if connected?(socket), do: schedule_refresh(socket)
     {:ok, socket}
   end
@@ -24,14 +35,18 @@ defmodule LiveView.StudioWeb.SalesLive do
         <.controls id="controls">
           <.refresh_form id="refresh-form" change="select-refresh">
             <.refresh_label for="refresh" />
-            <.refresh_select name="refresh" refresh={@refresh} />
+            <.refresh_select
+              name="refresh"
+              refresh_options={@refresh_options}
+              refresh={@refresh}
+            />
           </.refresh_form>
 
           <.refresh_button click="refresh" />
         </.controls>
       </.focus_wrap>
 
-      <.last_update last_update={@last_updated_at} />
+      <.last_update last_updated_at={@last_updated_at} />
     </.sales>
     """
   end
@@ -72,7 +87,7 @@ defmodule LiveView.StudioWeb.SalesLive do
       new_orders: Sales.new_orders(),
       sales_amount: Sales.sales_amount(),
       satisfaction: Sales.satisfaction(),
-      last_updated_at: Timex.now("America/New_York")
+      last_updated_at: Timex.now(@ny) |> Timex.format!("%H:%M:%S", :strftime)
     )
   end
 end
