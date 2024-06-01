@@ -10,18 +10,20 @@ defmodule LiveView.Studio.Flights do
 
   @typedoc "Flight"
   @type flight :: %Flight{}
-  @typedoc "Flight number"
+  @typedoc ~s'Flight number e.g. "450"'
   @type flight_number :: String.t()
-  @typedoc "Airport code"
+  @typedoc ~s'Airport code e.g. "DEN"'
   @type airport_code :: String.t()
-  @typedoc "Airport city"
+  @typedoc ~s'Airport city e.g. "Denver International Airport"'
   @type airport_city :: String.t()
-  @typedoc "Airport"
+  @typedoc ~s'Airport e.g. {"DEN", "Denver International Airport"}'
   @type airport :: {airport_code, airport_city}
   @typedoc "Flight origin"
   @type origin :: airport_code
   @typedoc "Flight destination"
   @type destination :: airport_code
+  @typedoc ~s'Flight route e.g. {"450", "DEN", "ORD"}'
+  @type route :: {flight_number, origin, destination}
   @typedoc "Flight number or airport code"
   @type flight_number_or_airport_code :: flight_number | airport_code
 
@@ -56,7 +58,7 @@ defmodule LiveView.Studio.Flights do
     |> Repo.all()
   end
 
-  @spec routes :: [{flight_number, origin, destination}]
+  @spec routes :: [route]
   def routes do
     for flight <- list_flights(), uniq: true do
       {flight.number, flight.origin, flight.destination}

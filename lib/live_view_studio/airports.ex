@@ -1,17 +1,17 @@
 defmodule LiveView.Studio.Airports do
   alias LiveView.Studio.Flights
 
-  @spec prefixed(String.t()) :: [Flights.airport()]
-  def prefixed(_prefix = ""), do: airports()
+  @spec code_starting_with(String.t()) :: [Flights.airport()]
+  def code_starting_with(_prefix = ""), do: airports()
 
-  def prefixed(prefix) do
-    Enum.filter(airports(), &has_prefix?(&1, prefix))
+  def code_starting_with(prefix) do
+    Enum.filter(airports(), &code_starting_with?(&1, prefix))
   end
 
   ## Private functions
 
-  @spec has_prefix?(Flights.airport(), String.t()) :: boolean
-  defp has_prefix?({code, _city}, prefix) do
+  @spec code_starting_with?(Flights.airport(), String.t()) :: boolean
+  defp code_starting_with?({code, _city}, prefix) do
     String.starts_with?(code, String.upcase(prefix))
   end
 

@@ -13,7 +13,7 @@ defmodule LiveView.StudioWeb.FlightsComponents do
       <%= @header %>
     </.header>
 
-    <div id={@id}>
+    <section id={@id}>
       <div
         id="forms"
         class="flex flex-col items-center gap-5 sm:flex-row sm:justify-center sm:gap-10"
@@ -21,7 +21,7 @@ defmodule LiveView.StudioWeb.FlightsComponents do
         <%= render_slot(@inner_block) %>
       </div>
       <%= render_slot(@search_results) %>
-    </div>
+    </section>
     """
   end
 
@@ -120,7 +120,7 @@ defmodule LiveView.StudioWeb.FlightsComponents do
 
   def flights_found(assigns) do
     ~H"""
-    <div class="mx-auto my-8 max-w-2xl overflow-hidden rounded-md bg-white shadow">
+    <div class="mx-auto my-10 max-w-2xl overflow-hidden rounded-lg bg-white shadow-md">
       <ul id={@id} phx-update={@update}>
         <%= render_slot(@inner_block) %>
       </ul>
@@ -135,27 +135,23 @@ defmodule LiveView.StudioWeb.FlightsComponents do
     ~H"""
     <li
       id={@id}
-      class="border-cool-gray-300 border-t px-6 py-4 hover:bg-indigo-100"
+      class="border-cool-gray-300 border-x border-t px-6 py-4 last:border-b hover:bg-indigo-100"
     >
-      <%!-- First line --%>
-      <div class="flex items-center justify-between">
-        <div class="truncate text-lg font-semibold leading-5 text-indigo-600">
+      <%!-- first line --%>
+      <div class="flex items-center justify-between text-indigo-600">
+        <div class="truncate text-lg font-semibold leading-5">
           Flight #<%= @flight.number %>
         </div>
-        <div class="justify-right mt-0 flex items-center text-right text-base leading-5 text-indigo-600">
+        <div class="flex text-base leading-5">
           <img class="h-5 w-5 flex-shrink-0" src="/images/location.svg" />
-          <span><%= @flight.origin %> to <%= @flight.destination %></span>
+          <span><%= @flight.origin %> ‒ <%= @flight.destination %></span>
         </div>
       </div>
 
-      <%!-- Second line --%>
-      <div class="mt-2 flex justify-between">
-        <div class="text-cool-gray-500">
-          Departs: <%= format_time(@flight.departure_time) %>
-        </div>
-        <div class="text-cool-gray-500 text-right">
-          Arrives: <%= format_time(@flight.arrival_time) %>
-        </div>
+      <%!-- second line --%>
+      <div class="text-cool-gray-500 mt-2 flex justify-between">
+        <div>Departs: <%= format_time(@flight.departure_time) %></div>
+        <div>Arrives: <%= format_time(@flight.arrival_time) %></div>
       </div>
     </li>
     """

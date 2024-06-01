@@ -3,11 +3,11 @@ defmodule LiveView.Studio.Flights.Flight do
   import Ecto.Changeset
 
   schema "flights" do
-    field :arrival_time, :utc_datetime_usec
-    field :departure_time, :utc_datetime_usec
-    field :destination, :string
     field :number, :string
     field :origin, :string
+    field :destination, :string
+    field :departure_time, :utc_datetime_usec
+    field :arrival_time, :utc_datetime_usec
 
     timestamps()
   end

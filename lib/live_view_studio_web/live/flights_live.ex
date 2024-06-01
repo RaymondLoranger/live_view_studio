@@ -8,10 +8,11 @@ defmodule LiveView.StudioWeb.FlightsLive do
   def mount(_params, _session, socket) do
     socket =
       socket
+      # fields: searching?, flight_number, airport_code, flights
       |> assign_fields(false, "", "", [])
       |> assign(
-        routes: Flights.routes(),
-        airports: Airports.prefixed(""),
+        routes: Routes.number_starting_with(""),
+        airports: Airports.code_starting_with(""),
         page_title: "Flights"
       )
 
@@ -59,25 +60,36 @@ defmodule LiveView.StudioWeb.FlightsLive do
 
   @spec handle_event(event :: binary, LV.unsigned_params(), Socket.t()) ::
           {:noreply, Socket.t()}
-  def handle_event("capture", %{"number" => start}, socket) do
-    {:noreply, assign_fields(socket, false, start, socket.assigns.code)}
-  end
-
-  def handle_event("capture", %{"code" => start}, socket) do
+  def handle_event("capture", %{"number" => prefix}, socket) do
     {:noreply,
      socket
-     |> assign_fields(false, socket.assigns.number, start)
-     |> assign(airports: Airports.prefixed(start))}
+     |> assign_fields(false, prefix, socket.assigns.code)
+     |> assign(routes: Routes.number_starting_with(prefix))}
+  end
+
+  def handle_event("capture", %{"code" => prefix}, socket) do
+    {:noreply,
+     socket
+     |> assign_fields(false, socket.assigns.number, prefix)
+     |> assign(airports: Airports.code_starting_with(prefix))}
   end
 
   def handle_event("search", %{"number" => number} = params, socket) do
     send(self(), {:search, params})
-    {:noreply, assign_fields(socket, true, number, socket.assigns.code, [])}
+
+    {:noreply,
+     socket
+     |> clear_flash()
+     |> assign_fields(true, number, socket.assigns.code, [])}
   end
 
   def handle_event("search", %{"code" => code} = params, socket) do
     send(self(), {:search, params})
-    {:noreply, assign_fields(socket, true, socket.assigns.number, code, [])}
+
+    {:noreply,
+     socket
+     |> clear_flash()
+     |> assign_fields(true, socket.assigns.number, code, [])}
   end
 
   @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
@@ -100,13 +112,13 @@ defmodule LiveView.StudioWeb.FlightsLive do
     socket
     |> put_flash(
       :error,
-      ~s|No flights matching "#{flight_number_or_airport_code}"|
+      ~s'No flights matching "#{flight_number_or_airport_code}"'
     )
     |> assign(flights: [], searching: false)
   end
 
   defp assign_flights(socket, _flight_number_or_airport_code, flights) do
-    socket |> clear_flash() |> assign(flights: flights, searching: false)
+    assign(socket, flights: flights, searching: false)
   end
 
   @spec assign_fields(
@@ -127,6 +139,8 @@ defmodule LiveView.StudioWeb.FlightsLive do
           [Flights.flight()]
         ) :: Socket.t()
   defp assign_fields(socket, searching, number, code, flights) do
-    socket |> assign_fields(searching, number, code) |> assign(flights: flights)
+    socket
+    |> assign_fields(searching, number, code)
+    |> assign(flights: flights)
   end
 end

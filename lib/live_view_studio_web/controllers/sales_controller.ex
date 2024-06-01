@@ -6,6 +6,7 @@ defmodule LiveView.StudioWeb.SalesController do
     assigns = [
       sellers: Enum.random(4..9),
       orders: Enum.random(15..19),
+      # skip the default app layout
       layout: false
     ]
 

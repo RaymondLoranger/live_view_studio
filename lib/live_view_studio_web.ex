@@ -169,6 +169,7 @@ defmodule LiveView.StudioWeb do
         Incidents,
         Licenses,
         PizzaOrders,
+        Routes,
         Sales,
         Sandbox,
         Servers,

@@ -19,9 +19,10 @@ defmodule LiveView.StudioWeb.CommonComponents do
   def search_in_progress(assigns) do
     # <div :if={@visible} class="loader">Searching...</div>
     ~H"""
-    <div :if={@visible} class="relative my-10 flex justify-center">
-      <div class="absolute h-12 w-12 rounded-full border-8 border-gray-300" />
-      <div class="absolute h-12 w-12 animate-spin rounded-full border-8 border-indigo-400 border-t-transparent" />
+    <div :if={@visible} class="my-10 flex justify-center">
+      <div class="border-12 h-16 w-16 rounded-full border-gray-300" />
+      <%!-- absolute => to lay this circle over the above one --%>
+      <div class="border-12 absolute h-16 w-16 animate-spin rounded-full border-indigo-400 border-t-transparent" />
     </div>
     """
   end

@@ -284,6 +284,8 @@ end
 
 ## Flights
 
+# 450-DEN-ORD
+
 %Flight{
   number: "450",
   origin: "DEN",
@@ -320,6 +322,84 @@ end
 }
 |> Repo.insert!()
 
+# 451-DEN-YUL
+
+%Flight{
+  number: "451",
+  origin: "DEN",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "451",
+  origin: "DEN",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "451",
+  origin: "DEN",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "451",
+  origin: "DEN",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 4),
+  arrival_time: Timex.shift(Timex.now(), days: 4, hours: 2)
+}
+|> Repo.insert!()
+
+# 452-DEN-YYZ
+
+%Flight{
+  number: "452",
+  origin: "DEN",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "452",
+  origin: "DEN",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "452",
+  origin: "DEN",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 2)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "452",
+  origin: "DEN",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 4),
+  arrival_time: Timex.shift(Timex.now(), days: 4, hours: 2)
+}
+|> Repo.insert!()
+
+# 860-DFW-ORD
+
 %Flight{
   number: "860",
   origin: "DFW",
@@ -347,6 +427,66 @@ end
 }
 |> Repo.insert!()
 
+# 861-DFW-YUL
+
+%Flight{
+  number: "861",
+  origin: "DFW",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 3)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "861",
+  origin: "DFW",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 3)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "861",
+  origin: "DFW",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 3)
+}
+|> Repo.insert!()
+
+# 862-DFW-YYZ
+
+%Flight{
+  number: "862",
+  origin: "DFW",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 3)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "862",
+  origin: "DFW",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 3)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "862",
+  origin: "DFW",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 3)
+}
+|> Repo.insert!()
+
+# 740-DAB-DEN
+
 %Flight{
   number: "740",
   origin: "DAB",
@@ -369,6 +509,64 @@ end
   number: "740",
   origin: "DAB",
   destination: "DEN",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 4)
+}
+|> Repo.insert!()
+
+# 741-DAB-YUL
+
+%Flight{
+  number: "741",
+  origin: "DAB",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 4)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "741",
+  origin: "DAB",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 4)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "741",
+  origin: "DAB",
+  destination: "YUL",
+  departure_time: Timex.shift(Timex.now(), days: 3),
+  arrival_time: Timex.shift(Timex.now(), days: 3, hours: 4)
+}
+|> Repo.insert!()
+
+# 742-DAB-YYZ
+
+%Flight{
+  number: "742",
+  origin: "DAB",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 1),
+  arrival_time: Timex.shift(Timex.now(), days: 1, hours: 4)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "742",
+  origin: "DAB",
+  destination: "YYZ",
+  departure_time: Timex.shift(Timex.now(), days: 2),
+  arrival_time: Timex.shift(Timex.now(), days: 2, hours: 4)
+}
+|> Repo.insert!()
+
+%Flight{
+  number: "742",
+  origin: "DAB",
+  destination: "YYZ",
   departure_time: Timex.shift(Timex.now(), days: 3),
   arrival_time: Timex.shift(Timex.now(), days: 3, hours: 4)
 }
