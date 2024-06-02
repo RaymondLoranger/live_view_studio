@@ -3,9 +3,9 @@ defmodule LiveView.Studio.Vehicles.Vehicle do
   import Ecto.Changeset
 
   schema "vehicles" do
-    field :color, :string
     field :make, :string
     field :model, :string
+    field :color, :string
 
     timestamps()
   end

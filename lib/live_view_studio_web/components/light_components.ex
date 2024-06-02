@@ -95,6 +95,7 @@ defmodule LiveView.StudioWeb.LightComponents do
         name="brightness"
         phx-focus={@focus}
         phx-blur={@blur}
+        phx-debounce="250"
       />
     </form>
     """

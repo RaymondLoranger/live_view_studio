@@ -3,10 +3,10 @@ defmodule LiveView.Studio.Boats.Boat do
   import Ecto.Changeset
 
   schema "boats" do
-    field :image, :string
     field :model, :string
     field :price, :string
     field :type, :string
+    field :image, :string
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule LiveView.Studio.Boats.Boat do
   @doc false
   def changeset(boat, attrs) do
     boat
-    |> cast(attrs, [:model, :type, :price, :image])
-    |> validate_required([:model, :type, :price, :image])
+    |> cast(attrs, [:model, :price, :type, :image])
+    |> validate_required([:model, :price, :type, :image])
   end
 end
