@@ -25,7 +25,7 @@ defmodule LiveView.StudioWeb.BoatsComponents do
   def filter_form(assigns) do
     ~H"""
     <form id={@id} phx-change={@change} class="mx-auto mb-4 max-w-xl">
-      <div class="flex flex-col items-center gap-2 sm:flex-row sm:items-baseline sm:justify-around">
+      <div class="flex flex-col items-center gap-5 sm:flex-row sm:justify-around">
         <%= render_slot(@inner_block) %>
       </div>
     </form>
@@ -38,7 +38,10 @@ defmodule LiveView.StudioWeb.BoatsComponents do
     ~H"""
     <select
       name="type"
-      class="bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700 w-36 cursor-pointer appearance-none rounded-lg border px-4 py-3 text-base font-semibold leading-tight focus:bg-cool-gray-200 focus:border-cool-gray-500 focus:outline-none"
+      class={[
+        "w-36 cursor-pointer rounded-lg px-4 py-2.5 text-base font-semibold leading-tight",
+        "bg-cool-gray-200 border-cool-gray-400 text-cool-gray-700"
+      ]}
     >
       <%= options_for_select(
         [
@@ -60,6 +63,7 @@ defmodule LiveView.StudioWeb.BoatsComponents do
     <div class="flex">
       <%!-- To ensure 'prices' sent even when none selected. --%>
       <input type="hidden" name="prices[]" value="" />
+      <%!-- The below class allows the prices to be tabbable. --%>
       <fieldset
         :for={price <- ["$", "$$", "$$$", "$$$$", "$$$$$"]}
         class="focus-within:mix-blend-multiply"
@@ -81,7 +85,10 @@ defmodule LiveView.StudioWeb.BoatsComponents do
           c4={price == "$$$$"}
           c5={price == "$$$$$"}
           class={[
-            "border-cool-gray-400 bg-cool-gray-300 inline-block border-y px-4 py-3 text-base font-semibold leading-5 hover:bg-cool-gray-400 hover:cursor-pointer peer-checked:border-indigo-500 peer-checked:bg-indigo-300",
+            "inline-block cursor-pointer border-y px-4 py-3 text-base font-semibold leading-5",
+            "border-cool-gray-400 bg-cool-gray-300",
+            "hover:bg-cool-gray-400",
+            "peer-checked:bg-indigo-300",
             "c1:rounded-l-lg c1:border-r c1:border-l",
             "c3:border-l",
             "c4:border-l",
@@ -102,7 +109,7 @@ defmodule LiveView.StudioWeb.BoatsComponents do
     <a
       href="#"
       phx-click={@click}
-      class="inline px-2 text-base underline hover:bg-indigo-300"
+      class="rounded-md px-2 py-1 text-base underline hover:bg-cool-gray-400 sm:py-2"
     >
       Clear All
     </a>
@@ -140,7 +147,7 @@ defmodule LiveView.StudioWeb.BoatsComponents do
           <span class="text-cool-gray-700 text-xl font-semibold">
             <%= @boat.price %>
           </span>
-          <span class="bg-cool-gray-300 text-cool-gray-700 inline-block rounded-full px-3 py-1 text-sm font-semibold">
+          <span class="bg-cool-gray-300 text-cool-gray-700 rounded-full px-3 py-1 text-sm font-semibold">
             <%= @boat.type %>
           </span>
         </div>
