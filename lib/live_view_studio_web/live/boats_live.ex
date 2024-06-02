@@ -38,12 +38,18 @@ defmodule LiveView.StudioWeb.BoatsLive do
           {:noreply, Socket.t()}
   def handle_event("filter", %{"type" => type, "prices" => prices}, socket) do
     filter = %{type: type, prices: prices}
-    boats = Boats.list_boats(filter)
-    {:noreply, assign_boats(socket, boats) |> assign(filter)}
+    send(self(), {:filter, filter})
+    {:noreply, socket |> clear_flash() |> assign(filter)}
   end
 
   def handle_event("clear", _params, socket) do
     {:noreply, assign_defaults(socket)}
+  end
+
+  @spec handle_info(msg :: term, Socket.t()) :: {:noreply, Socket.t()}
+  def handle_info({:filter, %{type: _, prices: _} = filter}, socket) do
+    # Process.sleep(500)
+    {:noreply, assign_boats(socket, Boats.list_boats(filter))}
   end
 
   ## Private functions
@@ -59,6 +65,6 @@ defmodule LiveView.StudioWeb.BoatsLive do
   end
 
   defp assign_boats(socket, boats) do
-    socket |> clear_flash() |> assign(boats: boats)
+    assign(socket, boats: boats)
   end
 end
