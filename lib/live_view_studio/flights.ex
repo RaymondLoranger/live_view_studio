@@ -54,7 +54,7 @@ defmodule LiveView.Studio.Flights do
     # Pretend search takes a while...
     :timer.sleep(1000)
 
-    from(f in Flight, where: ^code in [f.origin, f.destination])
+    from(f in Flight, where: ^String.upcase(code) in [f.origin, f.destination])
     |> Repo.all()
   end
 

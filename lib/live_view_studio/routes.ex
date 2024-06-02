@@ -12,6 +12,6 @@ defmodule LiveView.Studio.Routes do
 
   @spec number_starting_with?(Flights.route(), String.t()) :: boolean
   defp number_starting_with?({number, _origin, _destination}, prefix) do
-    String.starts_with?(number, String.upcase(prefix))
+    String.starts_with?(number, prefix)
   end
 end

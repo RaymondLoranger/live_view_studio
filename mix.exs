@@ -4,7 +4,7 @@ defmodule LiveView.Studio.MixProject do
   def project do
     [
       app: :live_view_studio,
-      version: "0.1.30",
+      version: "0.1.31",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
