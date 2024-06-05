@@ -22,16 +22,16 @@ defmodule LiveView.Studio.Servers.Server do
     server
     # We've removed :deploy_count, :last_commit_id, and :last_commit_message
     # from cast since we don't assign them via the input form...
-    |> cast(attrs, [:framework, :git_repo, :name, :size, :status])
-    |> validate_required([:framework, :git_repo, :name, :size])
+    |> cast(attrs, [:name, :framework, :size, :git_repo, :status])
+    |> validate_required([:name, :framework, :size, :git_repo])
     # :name
     |> validate_length(:name, min: 2, message: @min_length)
     |> validate_length(:name, max: 30, message: @max_length)
-    # :size
-    |> validate_number(:size, greater_than: 0, less_than: 90)
     # :framework
     |> validate_length(:framework, min: 2, message: @min_length)
     |> validate_length(:framework, max: 30, message: @max_length)
+    # :size
+    |> validate_number(:size, greater_than: 0, less_than: 90)
     # :git_repo
     |> validate_length(:git_repo, min: 2, message: @min_length)
     |> validate_length(:git_repo, max: 30, message: @max_length)

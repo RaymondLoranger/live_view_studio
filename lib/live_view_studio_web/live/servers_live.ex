@@ -27,11 +27,11 @@ defmodule LiveView.StudioWeb.ServersLive do
       <.servers id="servers" header="Servers 🖧">
         <.sidebar id="sidebar" mounted={JS.focus_first()}>
           <:add_server>
-            <.server_form_link
+            <.add_server_link
               patch={~p"/servers/new/form"}
               label="+ Add Server via Form"
             />
-            <.server_form_link
+            <.add_server_link
               patch={~p"/servers/new/modal"}
               label="+ Add Server via Modal"
             />
@@ -89,6 +89,7 @@ defmodule LiveView.StudioWeb.ServersLive do
   def handle_info({Servers, :server_created, server}, socket) do
     {:noreply,
      socket
+     #  Prepend new server...
      |> stream_insert(:servers, server, at: 0)
      |> push_patch(to: ~p"/servers/#{server}")}
   end
@@ -121,7 +122,7 @@ defmodule LiveView.StudioWeb.ServersLive do
     assign(socket, page_title: "New Server")
   end
 
-  defp apply_action(socket, nil = _action, %{"id" => id} = _params) do
+  defp apply_action(socket, _action = nil, _params = %{"id" => id}) do
     server = Servers.get_server!(id)
 
     socket
@@ -135,7 +136,7 @@ defmodule LiveView.StudioWeb.ServersLive do
     )
   end
 
-  defp apply_action(socket, nil = _action, _params) do
+  defp apply_action(socket, _action = nil, _params) do
     assign(socket, page_title: "Servers")
   end
 

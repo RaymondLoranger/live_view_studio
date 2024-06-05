@@ -12,7 +12,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%= @header %>
     </.header>
 
-    <div id={@id} class="mx-auto mb-8 flex max-w-4xl">
+    <div id={@id} class="mx-auto flex max-w-4xl justify-between gap-5">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -28,12 +28,10 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       phx-mounted={@mounted}
-      class="mb-8 w-52 rounded-lg bg-indigo-800 pt-4 pb-4 text-indigo-300"
+      class="min-w-52 rounded-lg bg-indigo-800 px-3 py-4 text-indigo-300"
     >
-      <nav class="bg-indigo-800 px-2">
-        <%= render_slot(@add_server) %>
-        <%= render_slot(@inner_block) %>
-      </nav>
+      <%= render_slot(@add_server) %>
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end
@@ -41,11 +39,11 @@ defmodule LiveView.StudioWeb.ServersComponents do
   attr :patch, :string, required: true
   attr :label, :string, required: true
 
-  def server_form_link(assigns) do
+  def add_server_link(assigns) do
     ~H"""
     <.link
       patch={@patch}
-      class="px-3 py-3 mb-2 font-medium flex items-center rounded-md text-white text-sm leading-5 hover:scale-105 bg-indigo-600"
+      class="p-3 mb-3 font-medium block rounded-md text-white text-sm leading-5 hover:scale-105 bg-indigo-600 outline-none focus:ring-1 focus:ring-indigo-100"
     >
       <%= @label %>
     </.link>
@@ -59,9 +57,9 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def navbar(assigns) do
     ~H"""
-    <div id={@id} phx-update={@update} phx-hook={@hook}>
+    <nav id={@id} phx-update={@update} phx-hook={@hook}>
       <%= render_slot(@inner_block) %>
-    </div>
+    </nav>
     """
   end
 
@@ -75,15 +73,18 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       selected={@server == @selected_server}
-      class="mb-2 rounded-md text-sm font-medium leading-5 selected:bg-indigo-600 selected:text-white hover:bg-indigo-900 hover:text-white hover:selected:scale-105"
+      class="mb-1.5 rounded-md text-sm font-medium leading-5 selected:bg-indigo-600 selected:text-white hover:selected:scale-105"
     >
-      <.link patch={@patch} class="flex items-center px-2 py-3">
+      <.link
+        patch={@patch}
+        class="rounded-md flex items-center gap-2 px-2 py-3 outline-none focus:ring-1 focus:ring-indigo-100 hover:bg-indigo-950 hover:text-white"
+      >
         <span
           up={@server.status == "up"}
           down={@server.status == "down"}
-          class="mr-2 h-4 w-4 rounded-full down:bg-red-400 up:bg-green-400"
+          class="h-4 w-4 rounded-full down:bg-red-400 up:bg-green-400"
         />
-        <img class="mr-2 h-6 w-6" src="/images/server.svg" />
+        <img class="h-6 w-6" src="/images/server.svg" />
         <%= @server.name %>
       </.link>
     </div>
@@ -94,7 +95,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def main(assigns) do
     ~H"""
-    <div class="mx-auto max-w-2xl flex-1 px-6">
+    <div class="mx-auto max-w-2xl flex-1">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -107,7 +108,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <div
       id={@id}
-      class="group relative overflow-hidden rounded-lg bg-white shadow"
+      class="group relative overflow-auto rounded-lg bg-white shadow-md"
     >
       <%= render_slot(@inner_block) %>
     </div>
@@ -121,7 +122,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <div
       id={@id}
-      class="flex flex-wrap items-center justify-between border-b border-gray-200 px-6 py-5"
+      class="flex items-center justify-between border-b border-gray-200 p-5"
     >
       <%= render_slot(@inner_block) %>
     </div>
@@ -133,7 +134,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_name(assigns) do
     ~H"""
-    <h2 id={@id} class="mb-0 text-xl font-semibold leading-6 text-indigo-800">
+    <h2 id={@id} class="text-xl font-semibold leading-6 text-indigo-800">
       <%= @name %>
     </h2>
     """
@@ -154,7 +155,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       phx-value-id={@id}
       phx-disable-with={@disable_with}
       phx-target={@target}
-      class="rounded-full bg-red-200 px-3 py-1 text-xs font-medium leading-5 text-red-800 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
+      class="rounded-full bg-red-200 px-3 py-1 text-xs font-medium leading-5 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
     >
       <%= @status %>
     </button>
@@ -188,7 +189,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%!-- Server details --%>
       <section
         id="server-details"
-        class="flex flex-wrap items-center justify-between text-lg font-medium leading-5 text-gray-500"
+        class="flex flex-wrap items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500"
       >
         <div class="flex items-baseline justify-between">
           <img
@@ -207,9 +208,9 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <h3 class="mt-8 mb-2 text-lg font-medium leading-5 text-gray-500">
           Git Repo
         </h3>
-        <div class="text-sm leading-5 text-gray-900">
+        <p class="text-sm leading-5 text-gray-900">
           <%= @server.git_repo %>
-        </div>
+        </p>
       </section>
 
       <%!-- Last commit ID --%>
@@ -217,9 +218,9 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <h3 class="mt-5 mb-2 text-lg font-medium leading-5 text-gray-500">
           Last Commit
         </h3>
-        <div class="text-sm leading-5 text-gray-900">
+        <p class="text-sm leading-5 text-gray-900">
           <%= @server.last_commit_id %>
-        </div>
+        </p>
       </section>
 
       <%!-- Last commit message --%>

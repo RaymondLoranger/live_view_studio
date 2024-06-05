@@ -13,7 +13,7 @@ defmodule LiveView.StudioWeb.ServerLayout do
           <.toggle_button
             click="toggle-status"
             id={@server.id}
-            disable_with="Toggling..."
+            disable_with="..."
             target={@myself}
             status={@server.status}
           />
