@@ -120,7 +120,7 @@ defmodule LiveView.StudioWeb.FlightsComponents do
 
   def flights_found(assigns) do
     ~H"""
-    <div class="mx-auto my-10 max-w-2xl overflow-hidden rounded-lg bg-white shadow-md">
+    <div class="mx-auto my-10 max-w-2xl overflow-hidden rounded-xl bg-white shadow-md">
       <ul id={@id} phx-update={@update}>
         <%= render_slot(@inner_block) %>
       </ul>
@@ -139,7 +139,7 @@ defmodule LiveView.StudioWeb.FlightsComponents do
     >
       <%!-- first line --%>
       <div class="flex items-center justify-between text-indigo-600">
-        <div class="truncate text-lg font-semibold leading-5">
+        <div class="truncate text-lg font-semibold leading-6">
           Flight #<%= @flight.number %>
         </div>
         <div class="flex text-base leading-5">

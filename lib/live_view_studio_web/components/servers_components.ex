@@ -28,7 +28,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       phx-mounted={@mounted}
-      class="min-w-52 rounded-lg bg-indigo-800 px-3 py-4 text-indigo-300"
+      class="w-52 rounded-lg bg-indigo-800 px-3 py-4"
     >
       <%= render_slot(@add_server) %>
       <%= render_slot(@inner_block) %>
@@ -73,7 +73,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       selected={@server == @selected_server}
-      class="mb-1.5 rounded-md text-sm font-medium leading-5 selected:bg-indigo-600 selected:text-white hover:selected:scale-105"
+      class="mb-1.5 rounded-md text-sm font-medium leading-5 text-indigo-300 selected:bg-indigo-600 selected:text-white hover:selected:scale-105"
     >
       <.link
         patch={@patch}
@@ -82,10 +82,10 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <span
           up={@server.status == "up"}
           down={@server.status == "down"}
-          class="h-4 w-4 rounded-full down:bg-red-400 up:bg-green-400"
+          class="h-4 w-4 rounded-full down:bg-red-400 up:bg-green-400 shrink-0"
         />
         <img class="h-6 w-6" src="/images/server.svg" />
-        <%= @server.name %>
+        <span class="truncate text-ellipsis"><%= @server.name %></span>
       </.link>
     </div>
     """
@@ -108,7 +108,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <div
       id={@id}
-      class="group relative overflow-auto rounded-lg bg-white shadow-md"
+      class="group relative rounded-lg bg-white shadow-md overflow-auto"
     >
       <%= render_slot(@inner_block) %>
     </div>
@@ -189,7 +189,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%!-- Server details --%>
       <section
         id="server-details"
-        class="flex flex-wrap items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500"
+        class="flex flex-wrap items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500 content-center"
       >
         <div class="flex items-baseline justify-between">
           <img
