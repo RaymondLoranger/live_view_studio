@@ -98,7 +98,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
   def main(assigns) do
     ~H"""
     <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200 max-w-2xl overflow-auto rounded-lg bg-white shadow-md"> --%>
-    <div class="max-w-2xl overflow-auto rounded-lg bg-white shadow-md">
+    <div class="max-w-2xl overflow-auto rounded-lg bg-white shadow-md flex-1">
       <%= render_slot(@inner_block) %>
     </div>
     """
