@@ -12,7 +12,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%= @header %>
     </.header>
 
-    <div id={@id} class="mx-auto flex max-w-4xl justify-between gap-5">
+    <div id={@id} class="mx-auto flex max-w-4xl justify-center gap-5">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -82,10 +82,12 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <span
           up={@server.status == "up"}
           down={@server.status == "down"}
-          class="h-4 w-4 rounded-full down:bg-red-400 up:bg-green-400 shrink-0"
+          class="h-4 w-4 shrink-0 rounded-full down:bg-red-400 up:bg-green-400"
         />
         <img class="h-6 w-6" src="/images/server.svg" />
-        <span class="truncate text-ellipsis"><%= @server.name %></span>
+        <span class="truncate text-ellipsis" title={@server.name}>
+          <%= @server.name %>
+        </span>
       </.link>
     </div>
     """
@@ -95,7 +97,8 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def main(assigns) do
     ~H"""
-    <div class="mx-auto max-w-2xl flex-1">
+    <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200 max-w-2xl overflow-auto rounded-lg bg-white shadow-md"> --%>
+    <div class="max-w-2xl overflow-auto rounded-lg bg-white shadow-md">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -106,10 +109,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_layout(assigns) do
     ~H"""
-    <div
-      id={@id}
-      class="group relative rounded-lg bg-white shadow-md overflow-auto"
-    >
+    <div id={@id} class="group relative">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -189,7 +189,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%!-- Server details --%>
       <section
         id="server-details"
-        class="flex flex-wrap items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500 content-center"
+        class="flex flex-wrap content-center items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500"
       >
         <div class="flex items-baseline justify-between">
           <img

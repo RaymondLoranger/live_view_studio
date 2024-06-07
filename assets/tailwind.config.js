@@ -51,6 +51,11 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    // default: 'standard'
+    require('tailwind-scrollbar')({
+      nocompatible: true,
+      preferredStrategy: 'pseudoelements'
+    }),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //
