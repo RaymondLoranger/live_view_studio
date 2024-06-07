@@ -28,7 +28,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       phx-mounted={@mounted}
-      class="w-52 rounded-lg bg-indigo-800 px-3 py-4"
+      class="w-56 rounded-lg bg-indigo-800 px-3 py-4"
     >
       <%= render_slot(@add_server) %>
       <%= render_slot(@inner_block) %>
@@ -98,6 +98,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
   def main(assigns) do
     ~H"""
     <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200 max-w-2xl overflow-auto rounded-lg bg-white shadow-md"> --%>
+
     <div class="max-w-2xl overflow-auto rounded-lg bg-white shadow-md flex-1">
       <%= render_slot(@inner_block) %>
     </div>
