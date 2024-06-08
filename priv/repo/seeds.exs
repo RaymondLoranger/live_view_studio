@@ -744,6 +744,32 @@ end
 }
 |> Repo.insert!()
 
+%Server{
+  name: "medieval-dragon",
+  status: "down",
+  deploy_count: 12,
+  size: 65.5,
+  framework: "Elixir/Phoenix",
+  git_repo: "https://git.example.com/medieval-dragon.git",
+  last_commit_id: "e579b16",
+  last_commit_message:
+    "In medieval Europe, dragons were usually depicted with wings and a barbed tail and as breathing fire. 🐉"
+}
+|> Repo.insert!()
+
+%Server{
+  name: "legendary-unicorn",
+  status: "down",
+  deploy_count: 12,
+  size: 35.3,
+  framework: "Python/Django",
+  git_repo: "https://git.example.com/legendary-unicorn.git",
+  last_commit_id: "ff57dd1",
+  last_commit_message:
+    "The unicorn is a legendary creature that has been described since antiquity as a beast with a single large, pointed, spiraling horn projecting from its forehead. 🦄"
+}
+|> Repo.insert!()
+
 ## Donations
 
 donation_items = [

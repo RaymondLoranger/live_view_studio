@@ -100,6 +100,9 @@ module.exports = {
     plugin(({ addVariant }) => addVariant('c4', '&[c4]')),
     plugin(({ addVariant }) => addVariant('c5', '&[c5]')),
     plugin(({ addVariant }) => addVariant('c6', '&[c6]')),
+    plugin(({ addVariant }) => {
+      addVariant('hocus', ['&:hover', '&:focus'])
+    }),
 
     // Embeds Heroicons (https://heroicons.com) into your app.css bundle
     // See your `CoreComponents.icon/1` for more information.

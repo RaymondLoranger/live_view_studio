@@ -12,7 +12,10 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%= @header %>
     </.header>
 
-    <div id={@id} class="mx-auto flex max-w-4xl justify-center gap-5">
+    <div
+      id={@id}
+      class="group relative mx-auto flex max-w-4xl justify-center gap-5"
+    >
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -28,7 +31,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       phx-mounted={@mounted}
-      class="w-56 rounded-lg bg-indigo-800 px-3 py-4"
+      class="w-52 rounded-lg bg-indigo-800 px-3 py-4"
     >
       <%= render_slot(@add_server) %>
       <%= render_slot(@inner_block) %>
@@ -99,7 +102,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200 max-w-2xl overflow-auto rounded-lg bg-white shadow-md"> --%>
 
-    <div class="max-w-2xl overflow-auto rounded-lg bg-white shadow-md flex-1">
+    <div class="max-w-2xl flex-1 overflow-auto rounded-lg">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -110,7 +113,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_layout(assigns) do
     ~H"""
-    <div id={@id} class="group relative">
+    <div id={@id} class="bg-white shadow-md">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -135,7 +138,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_name(assigns) do
     ~H"""
-    <h2 id={@id} class="text-xl font-semibold leading-6 text-indigo-800">
+    <h2 id={@id} class="ml-3 text-xl font-semibold leading-6 text-indigo-800">
       <%= @name %>
     </h2>
     """
@@ -156,7 +159,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       phx-value-id={@id}
       phx-disable-with={@disable_with}
       phx-target={@target}
-      class="rounded-full bg-red-200 px-3 py-1 text-xs font-medium leading-5 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
+      class="mr-4 rounded-full bg-red-200 px-3 py-1 text-xs font-medium leading-5 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
     >
       <%= @status %>
     </button>
@@ -174,9 +177,12 @@ defmodule LiveView.StudioWeb.ServersComponents do
       phx-value-id={@id}
       phx-target={@target}
       title="Delete"
-      class="absolute top-1 right-1 hidden cursor-pointer text-sm group-hover:block"
+      class="absolute top-1 right-5 hidden cursor-pointer text-sm group-hover:block"
     >
-      <.icon name="hero-trash-solid" class="w-4 h-4 text-slate-400" />
+      <.icon
+        name="hero-trash-solid"
+        class="w-4 h-4 text-slate-400 hover:scale-125"
+      />
     </.link>
     """
   end
@@ -186,7 +192,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_body(assigns) do
     ~H"""
-    <div id={@id} class="h-72 px-8 py-4">
+    <div id={@id} class="flex flex-col justify-between gap-3 px-8 py-4">
       <%!-- Server details --%>
       <section
         id="server-details"
@@ -209,7 +215,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <h3 class="mt-8 mb-2 text-lg font-medium leading-5 text-gray-500">
           Git Repo
         </h3>
-        <p class="text-sm leading-5 text-gray-900">
+        <p class="break-words text-sm leading-5 text-gray-900">
           <%= @server.git_repo %>
         </p>
       </section>
@@ -335,12 +341,27 @@ defmodule LiveView.StudioWeb.ServersComponents do
   end
 
   attr :disable_with, :string, required: true
+  attr :patch, :string, required: true
+
+  def form_buttons(assigns) do
+    ~H"""
+    <div class="mt-3 flex justify-between gap-3">
+      <.save_button disable_with={@disable_with} />
+      <.cancel_button patch={@patch} />
+    </div>
+    """
+  end
+
+  attr :disable_with, :string, required: true
 
   def save_button(assigns) do
     ~H"""
     <button
       phx-disable-with={@disable_with}
-      class="mt-3 w-24 rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-lg font-medium text-white outline-none hover:bg-indigo-700 focus:bg-indigo-700"
+      class={[
+        "w-1/2 rounded-md py-1.5 text-lg font-medium outline-none sm:w-5/12 sm:py-2",
+        "border border-transparent bg-indigo-500 text-white hocus:bg-indigo-700"
+      ]}
     >
       Save
     </button>
@@ -353,7 +374,10 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <.link
       patch={@patch}
-      class="mt-3 ml-2 py-2 px-4 border-2 border-cool-gray-600 font-medium rounded-md text-cool-gray-600 outline-none text-lg hover:bg-cool-gray-600 hover:text-white focus:bg-cool-gray-600 focus:text-white"
+      class={[
+        "inline-block w-1/2 rounded-md py-1.5 text-center text-lg font-medium outline-none sm:w-5/12 sm:py-2",
+        "border-2 border-cool-gray-600 text-cool-gray-600 bg-transparent hocus:bg-cool-gray-600 hocus:text-white"
+      ]}
     >
       Cancel
     </.link>
