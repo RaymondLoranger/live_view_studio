@@ -100,9 +100,9 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def main(assigns) do
     ~H"""
-    <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200 max-w-2xl overflow-auto rounded-lg bg-white shadow-md"> --%>
+    <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200..."> --%>
 
-    <div class="max-w-2xl flex-1 overflow-auto rounded-lg">
+    <div class="max-h-[55vh] max-w-2xl flex-1 overflow-auto rounded-lg">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -343,7 +343,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
   attr :disable_with, :string, required: true
   attr :patch, :string, required: true
 
-  def form_buttons(assigns) do
+  def buttons(assigns) do
     ~H"""
     <div class="mt-3 flex justify-between gap-3">
       <.save_button disable_with={@disable_with} />
@@ -359,7 +359,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <button
       phx-disable-with={@disable_with}
       class={[
-        "w-1/2 rounded-md py-1.5 text-lg font-medium outline-none sm:w-5/12 sm:py-2",
+        "w-1/2 rounded-md py-1 text-lg font-medium outline-none sm:w-5/12 sm:py-2",
         "border border-transparent bg-indigo-500 text-white hocus:bg-indigo-700"
       ]}
     >
@@ -375,8 +375,8 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <.link
       patch={@patch}
       class={[
-        "inline-block w-1/2 rounded-md py-1.5 text-center text-lg font-medium outline-none sm:w-5/12 sm:py-2",
-        "border-2 border-cool-gray-600 text-cool-gray-600 bg-transparent hocus:bg-cool-gray-600 hocus:text-white"
+        "inline-block w-1/2 rounded-md py-1 text-center text-lg font-medium outline-none sm:w-5/12 sm:py-2",
+        "border-2 border-cool-gray-600 bg-transparent text-cool-gray-600 hocus:bg-cool-gray-600 hocus:text-white"
       ]}
     >
       Cancel

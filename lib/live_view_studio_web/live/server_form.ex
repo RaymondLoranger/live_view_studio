@@ -46,7 +46,7 @@ defmodule LiveView.StudioWeb.ServerForm do
           <.framework form={@form} />
           <.size form={@form} />
           <.git_repo form={@form} />
-          <.form_buttons disable_with="Saving..." patch={@on_cancel} />
+          <.buttons disable_with="Saving..." patch={@on_cancel} />
         </.focus_wrap>
 
         <div :if={@inside_modal}>
@@ -54,7 +54,7 @@ defmodule LiveView.StudioWeb.ServerForm do
           <.framework form={@form} />
           <.size form={@form} />
           <.git_repo form={@form} />
-          <.form_buttons disable_with="Saving..." patch={@on_cancel} />
+          <.buttons disable_with="Saving..." patch={@on_cancel} />
         </div>
       </.server_form>
     </article>

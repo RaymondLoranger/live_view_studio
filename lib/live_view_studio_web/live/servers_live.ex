@@ -74,7 +74,7 @@ defmodule LiveView.StudioWeb.ServersLive do
           </.modal>
 
           <.live_component
-            :if={is_nil(@live_action) and @selected_server}
+            :if={@live_action in [nil, :modal_new] and @selected_server}
             module={ServerLayout}
             id="server-layout"
             server={@selected_server}
