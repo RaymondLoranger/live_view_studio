@@ -28,14 +28,17 @@ defmodule LiveView.StudioWeb.ShopComponents do
     """
   end
 
-  attr :click, :string, required: true
+  attr :id, :string, required: true
+  attr :click, JS, required: true
+  attr :mounted, JS, required: true
   slot :inner_block, required: true
 
   def show_cart_button(assigns) do
     ~H"""
     <button
+      id={@id}
       phx-click={@click}
-      id="show-cart-button"
+      phx-mounted={@mounted}
       title="Show Cart"
       class="cursor-pointer rounded-md border-2 border-transparent bg-transparent px-3 py-1 hover:border-slate-300"
     >
@@ -94,16 +97,13 @@ defmodule LiveView.StudioWeb.ShopComponents do
     """
   end
 
-  attr :click, :string, required: true
-  attr :id, :string, required: true
+  attr :click, JS, required: true
 
   def add_product_button(assigns) do
     ~H"""
     <button
-      id={"add-#{@id}"}
       title="Add To Cart"
       phx-click={@click}
-      phx-value-id={@id}
       class="rounded-md border border-transparent bg-slate-200 px-8 py-2 text-sm font-medium text-slate-900 hover:bg-slate-300"
     >
       Add
@@ -111,17 +111,30 @@ defmodule LiveView.StudioWeb.ShopComponents do
     """
   end
 
+  attr :id, :string, required: true
+  attr :click, JS, required: true
+
+  # Initially hidden...
   def backdrop(assigns) do
     ~H"""
-    <div id="backdrop" class="fixed inset-0 bg-slate-500 bg-opacity-75" />
+    <div
+      id={@id}
+      phx-click={@click}
+      class="fixed inset-0 hidden bg-slate-500 bg-opacity-75"
+    />
     """
   end
 
+  attr :id, :string, required: true
   slot :inner_block, required: true
 
+  # Initially hidden...
   def cart(assigns) do
     ~H"""
-    <div id="cart" class="fixed inset-y-0 right-0 z-20 w-80 bg-white p-8">
+    <div
+      id={@id}
+      class="fixed inset-y-0 right-0 z-20 hidden w-80 bg-white p-8"
+    >
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -147,13 +160,14 @@ defmodule LiveView.StudioWeb.ShopComponents do
     """
   end
 
-  attr :click, :string, required: true
+  attr :id, :string, required: true
+  attr :click, JS, required: true
   slot :inner_block, required: true
 
   def hide_cart_button(assigns) do
     ~H"""
     <button
-      id="hide-cart-button"
+      id={@id}
       title="Hide Cart"
       phx-click={@click}
       class="rounded-md bg-white text-slate-400 outline-none hocus:text-slate-500 hocus:ring-2 hocus:ring-slate-500 hocus:ring-offset-2"
