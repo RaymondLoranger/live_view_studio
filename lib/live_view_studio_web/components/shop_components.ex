@@ -167,11 +167,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_items(assigns) do
     ~H"""
-<<<<<<< HEAD
-    <ul class="h-[calc(100vh-theme('spacing.7'))] -my-4 divide-y divide-slate-200 overflow-y-auto px-4">
-=======
     <ul class="h-[calc(100vh-theme('spacing.7'))] divide-y divide-slate-200 overflow-y-auto px-4 pb-6">
->>>>>>> shop-cart
       <%= render_slot(@inner_block) %>
     </ul>
     """
