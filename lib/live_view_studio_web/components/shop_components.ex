@@ -131,7 +131,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_header(assigns) do
     ~H"""
-    <div class="flex items-center justify-around pb-6 h-7">
+    <div class="flex h-7 items-center justify-around pb-6">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -167,7 +167,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_items(assigns) do
     ~H"""
-    <ul class="-my-4 divide-y divide-slate-200 px-4 overflow-y-auto h-[calc(100vh-theme('spacing.7'))]">
+    <ul class="h-[calc(100vh-theme('spacing.7'))] -my-4 divide-y divide-slate-200 overflow-y-auto px-4">
       <%= render_slot(@inner_block) %>
     </ul>
     """
