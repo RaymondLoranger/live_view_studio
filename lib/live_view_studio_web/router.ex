@@ -43,6 +43,7 @@ defmodule LiveView.StudioWeb.Router do
     live "/servers/new/modal", ServersLive, :modal_new
     live "/server-names", ServerNamesLive
     live "/server-names/:name", ServerNamesLive
+    live "/shop", ShopLive
     live "/stores", StoresLive
     live "/stores/autocomplete", StoresLive, :autocomplete
     live "/toc", TOCLive # Table of Contents

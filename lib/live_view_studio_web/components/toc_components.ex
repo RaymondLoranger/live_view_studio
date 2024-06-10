@@ -154,6 +154,7 @@ defmodule LiveView.StudioWeb.TOCComponents do
     String.replace(camel_case, ~r/(\B[A-Z])/, " \\1")
   end
 
+  @spec prefix(String.t()) :: String.t()
   defp prefix("/boats"), do: "🚤 "
   defp prefix("/bookings"), do: "📅 "
   defp prefix("/chart"), do: "📈 "
