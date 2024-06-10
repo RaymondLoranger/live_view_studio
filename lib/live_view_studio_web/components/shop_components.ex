@@ -12,7 +12,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
       <%= @header %>
     </.header>
 
-    <section id={@id} class="mx-auto mt-8 max-w-3xl text-center">
+    <section id={@id} class="mx-auto mt-10 max-w-3xl text-center">
       <%= render_slot(@inner_block) %>
     </section>
     """
@@ -22,7 +22,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_summary(assigns) do
     ~H"""
-    <div class="-mt-8 flex h-6 items-center justify-end">
+    <div class="-mt-6 flex h-6 items-center justify-end">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -51,7 +51,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_count(assigns) do
     ~H"""
-    <span class="ml-1 inline-block rounded-full bg-slate-600 px-2 py-1 text-xs font-bold tabular-nums text-white">
+    <span class="ml-1 rounded-full bg-slate-600 px-2 py-1 text-xs font-bold tabular-nums text-white">
       <%= @count %>
     </span>
     """
@@ -71,7 +71,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def product(assigns) do
     ~H"""
-    <div class="max-w-sm overflow-hidden rounded border-4 border-transparent bg-white p-3 shadow-lg">
+    <div class="max-w-sm overflow-hidden rounded-lg border-4 border-transparent bg-white p-3 shadow-lg">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -81,7 +81,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def product_image(assigns) do
     ~H"""
-    <div class="mb-2 text-center text-5xl">
+    <div class="mb-2 text-5xl">
       <%= @image %>
     </div>
     """
@@ -91,7 +91,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def product_name(assigns) do
     ~H"""
-    <div class="mb-6 text-center text-lg font-medium text-slate-900">
+    <div class="mb-6 text-lg font-medium text-slate-900">
       <%= @name %>
     </div>
     """
@@ -154,7 +154,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_title(assigns) do
     ~H"""
-    <h2 class="mb-0 text-xl font-medium text-slate-900">
+    <h2 class="text-xl font-medium text-slate-900">
       <%= @title %>
     </h2>
     """
@@ -170,7 +170,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
       id={@id}
       title="Hide Cart"
       phx-click={@click}
-      class="rounded-md bg-white text-slate-400 outline-none hocus:text-slate-500 hocus:ring-2 hocus:ring-slate-500 hocus:ring-offset-2"
+      class="rounded-md text-slate-400 outline-none hocus:text-slate-600 hocus:ring-2 hocus:ring-slate-400 hocus:ring-offset-2"
     >
       <%= render_slot(@inner_block) %>
     </button>
@@ -180,6 +180,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
   slot :inner_block, required: true
 
   def cart_items(assigns) do
+    # cart_header has a height of h-7 => spacing.7 (1.75rem)...
     ~H"""
     <ul class="h-[calc(100vh-theme('spacing.7'))] divide-y divide-slate-200 overflow-y-auto px-4 pb-6">
       <%= render_slot(@inner_block) %>
@@ -187,14 +188,14 @@ defmodule LiveView.StudioWeb.ShopComponents do
     """
   end
 
-  attr :product, :string, required: true
+  attr :image, :string, required: true
   attr :quantity, :integer, required: true
 
   def cart_item(assigns) do
     ~H"""
-    <li class="flex items-center justify-between py-3">
+    <li class="flex items-baseline justify-between py-3">
       <span class="p-4 text-3xl">
-        <%= @product %>
+        <%= @image %>
       </span>
       <span class="text-xl font-medium text-slate-600">
         &times; <%= @quantity %>

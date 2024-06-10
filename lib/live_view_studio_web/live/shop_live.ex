@@ -52,8 +52,8 @@ defmodule LiveView.StudioWeb.ShopLive do
 
           <.cart_items>
             <.cart_item
-              :for={{product, quantity} <- @cart}
-              product={product}
+              :for={{image, quantity} <- @cart}
+              image={image}
               quantity={quantity}
             />
           </.cart_items>
@@ -86,7 +86,7 @@ defmodule LiveView.StudioWeb.ShopLive do
       out: {"ease-in-out duration-300", "translate-x-0", "translate-x-full"},
       time: 300
     )
-    |> JS.toggle(to: "#backdrop", in: "fade-in", out: "fade-out")
+    |> JS.toggle(to: "#backdrop", in: "fade-in-scale", out: "fade-out-scale")
   end
 
   @dialyzer {:nowarn_function, add_to_and_shake_cart: 1}
