@@ -131,11 +131,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_header(assigns) do
     ~H"""
-<<<<<<< HEAD
-    <div class="flex h-7 items-center justify-around pb-6">
-=======
     <div class="flex h-7 items-center justify-around">
->>>>>>> shop-cart
       <%= render_slot(@inner_block) %>
     </div>
     """
