@@ -18,7 +18,10 @@ defmodule LiveView.StudioWeb.ShopLive do
     ~H"""
     <.shop id="shop" header="🛒 Mike's Garage Sale 🛒">
       <.cart_summary>
-        <.show_cart_button :if={Enum.count(@cart) > 0}>
+        <.show_cart_button
+          :if={Enum.count(@cart) > 0}
+          click="toggle-show-cart"
+        >
           <.icon name="hero-shopping-cart" />
           <.cart_count count={Enum.count(@cart)} />
         </.show_cart_button>
@@ -37,11 +40,11 @@ defmodule LiveView.StudioWeb.ShopLive do
       <.cart :if={@show_cart}>
         <.cart_header>
           <.cart_title title="Shopping Cart" />
-          <.hide_cart_button>
+          <.hide_cart_button click="toggle-show-cart">
             <.icon name="hero-x-mark" />
           </.hide_cart_button>
         </.cart_header>
-        
+
         <.cart_items>
           <.cart_item
             :for={{product, quantity} <- @cart}
