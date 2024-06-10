@@ -37,7 +37,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
       phx-click={@click}
       id="show-cart-button"
       title="Show Cart"
-      class="flex cursor-pointer items-center justify-end rounded-md border-2 border-transparent bg-transparent px-3 py-1 hover:border-slate-300"
+      class="cursor-pointer rounded-md border-2 border-transparent bg-transparent px-3 py-1 hover:border-slate-300"
     >
       <%= render_slot(@inner_block) %>
     </button>
@@ -100,7 +100,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
   def add_product_button(assigns) do
     ~H"""
     <button
-      id="add-{@id}"
+      id={"add-#{@id}"}
       title="Add To Cart"
       phx-click={@click}
       phx-value-id={@id}
@@ -131,7 +131,11 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_header(assigns) do
     ~H"""
+<<<<<<< HEAD
     <div class="flex h-7 items-center justify-around pb-6">
+=======
+    <div class="flex h-7 items-center justify-around">
+>>>>>>> shop-cart
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -156,7 +160,7 @@ defmodule LiveView.StudioWeb.ShopComponents do
       id="hide-cart-button"
       title="Hide Cart"
       phx-click={@click}
-      class="rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+      class="rounded-md bg-white text-slate-400 outline-none hocus:text-slate-500 hocus:ring-2 hocus:ring-slate-500 hocus:ring-offset-2"
     >
       <%= render_slot(@inner_block) %>
     </button>
@@ -167,7 +171,11 @@ defmodule LiveView.StudioWeb.ShopComponents do
 
   def cart_items(assigns) do
     ~H"""
+<<<<<<< HEAD
     <ul class="h-[calc(100vh-theme('spacing.7'))] -my-4 divide-y divide-slate-200 overflow-y-auto px-4">
+=======
+    <ul class="h-[calc(100vh-theme('spacing.7'))] divide-y divide-slate-200 overflow-y-auto px-4 pb-6">
+>>>>>>> shop-cart
       <%= render_slot(@inner_block) %>
     </ul>
     """
