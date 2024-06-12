@@ -95,6 +95,13 @@ defmodule LiveView.StudioWeb.DonationsLive do
     %{sort_by: sort_by, sort_order: sort_order}
   end
 
+  # options = %{page: 3, per_page: 10}
+  # route(:paginate).(options) =>
+  #   "/donations/paginate?page=3&per_page=10"
+
+  # options = %{sort_by: :item, page: 1, per_page: 5, sort_order: :desc}
+  # route(:sort).(options) =>
+  #   "/donations/sort?sort_by=item&page=1&per_page=5&sort_order=desc"
   @spec route(action :: atom) :: (map -> Path.t())
   defp route(:paginate),
     do: fn options -> ~p"/donations/paginate?#{options}" end
