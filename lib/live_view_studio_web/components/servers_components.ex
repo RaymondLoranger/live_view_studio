@@ -12,12 +12,12 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%= @header %>
     </.header>
 
-    <div
+    <section
       id={@id}
-      class="group relative mx-auto flex max-w-4xl justify-center gap-5"
+      class="group relative mx-auto flex max-w-4xl items-start justify-center gap-5"
     >
       <%= render_slot(@inner_block) %>
-    </div>
+    </section>
     """
   end
 
@@ -46,7 +46,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <.link
       patch={@patch}
-      class="p-3 mb-3 font-medium block rounded-md text-white text-sm leading-5 hover:scale-105 bg-indigo-600 outline-none focus:ring-1 focus:ring-indigo-100"
+      class="p-3 mb-3 font-medium block rounded-md text-white text-sm hover:scale-105 bg-indigo-600 outline-none focus:ring-1 focus:ring-indigo-100"
     >
       <%= @label %>
     </.link>
@@ -76,7 +76,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     <div
       id={@id}
       selected={@server == @selected_server}
-      class="mb-1.5 rounded-md text-sm font-medium leading-5 text-indigo-300 selected:bg-indigo-600 selected:text-white hover:selected:scale-105"
+      class="mb-1.5 rounded-md text-sm font-medium text-indigo-200 selected:bg-indigo-600 selected:text-white hover:selected:scale-105"
     >
       <.link
         patch={@patch}
@@ -102,7 +102,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <%!-- <div class="scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg scrollbar scrollbar-thumb-indigo-500 scrollbar-track-indigo-200 scrollbar-corner-indigo-200..."> --%>
 
-    <div class="max-h-[55vh] max-w-2xl flex-1 overflow-auto rounded-lg">
+    <div class="max-w-2xl flex-1 overflow-auto rounded-lg">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -113,7 +113,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
 
   def server_layout(assigns) do
     ~H"""
-    <div id={@id} class="bg-white shadow-md">
+    <div id={@id} class="bg-white">
       <%= render_slot(@inner_block) %>
     </div>
     """
@@ -126,7 +126,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
     ~H"""
     <div
       id={@id}
-      class="flex items-center justify-between border-b border-gray-200 p-5"
+      class="flex items-center justify-between gap-4 border-b border-gray-200 p-5"
     >
       <%= render_slot(@inner_block) %>
     </div>
@@ -159,7 +159,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       phx-value-id={@id}
       phx-disable-with={@disable_with}
       phx-target={@target}
-      class="mr-4 rounded-full bg-red-200 px-3 py-1 text-xs font-medium leading-5 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
+      class="mr-4 rounded-full px-3 py-1 text-xs font-medium leading-5 down:bg-red-200 down:text-red-800 up:bg-green-200 up:text-green-800 hover:scale-105"
     >
       <%= @status %>
     </button>
@@ -196,9 +196,9 @@ defmodule LiveView.StudioWeb.ServersComponents do
       <%!-- Server details --%>
       <section
         id="server-details"
-        class="flex flex-wrap content-center items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500"
+        class="flex flex-wrap items-baseline justify-between gap-3 p-2 text-lg font-medium leading-5 text-gray-500"
       >
-        <div class="flex items-baseline justify-between">
+        <div class="flex items-baseline">
           <img
             alt="deploy image"
             src="/images/deploy.svg"
@@ -215,7 +215,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <h3 class="mt-8 mb-2 text-lg font-medium leading-5 text-gray-500">
           Git Repo
         </h3>
-        <p class="break-words text-sm leading-5 text-gray-900">
+        <p class="break-words text-sm text-gray-900">
           <%= @server.git_repo %>
         </p>
       </section>
@@ -225,7 +225,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
         <h3 class="mt-5 mb-2 text-lg font-medium leading-5 text-gray-500">
           Last Commit
         </h3>
-        <p class="text-sm leading-5 text-gray-900">
+        <p class="text-sm text-gray-900">
           <%= @server.last_commit_id %>
         </p>
       </section>
@@ -257,7 +257,7 @@ defmodule LiveView.StudioWeb.ServersComponents do
       phx-change={@change}
       phx-target={@target}
       class={[
-        "border-solid border border-cool-gray-400 rounded-md p-8 mb-8 shadow-lg relative",
+        "border-solid border border-cool-gray-400 rounded-lg p-8 mb-8 shadow-lg relative",
         "#{@class}"
       ]}
     >
