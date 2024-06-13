@@ -49,12 +49,12 @@ defmodule LiveView.StudioWeb.CommonComponents do
 
   def page_table(assigns) do
     ~H"""
-    <table class="min-w-full">
+    <table class="w-full">
       <thead>
         <tr>
           <th
             :for={col <- @col}
-            class="border-cool-gray-300 border-b bg-indigo-700 py-4 pr-6 pl-4 text-center text-base font-medium uppercase leading-4 tracking-wider text-white first:w-40 first:pr-2"
+            class="bg-indigo-700 py-4 pr-6 pl-4 text-base font-medium uppercase leading-4 tracking-wider text-white first:w-40 first:pr-2"
           >
             <.column_header
               options={@options}
@@ -114,13 +114,17 @@ defmodule LiveView.StudioWeb.CommonComponents do
 
   ## Private functions
 
-  @spec column_header(Socket.assigns()) :: Rendered.t()
+  attr :field, :atom, required: true
+  attr :options, :map, required: true
+  attr :route, :any, required: true, doc: "A function actually..."
+
   defp column_header(
          %{
            field: field,
            options: %{sort_order: dir, sort_by: key} = options
          } = assigns
        ) do
+    # Phoenix.Naming.humanize(:days_until_expires) => "Days until expires"
     header = "#{humanize(field)}#{if field == key, do: emoji(dir)}"
     options = sort_by_and_toggle_order(options, field)
     assigns = assign(assigns, header: header, options: options)
@@ -129,8 +133,8 @@ defmodule LiveView.StudioWeb.CommonComponents do
     <.link
       patch={@route.(@options)}
       class={[
-        "px-2 font-semibold no-underline text-white hover:text-yellow-400",
-        "focus:border-white focus:rounded-sm focus:border focus:outline-none"
+        "px-2 font-semibold no-underline hover:text-yellow-400",
+        "focus:border-white focus:rounded-md focus:border focus:outline-none"
       ]}
     >
       <%= @header %>
@@ -188,7 +192,9 @@ defmodule LiveView.StudioWeb.CommonComponents do
     """
   end
 
-  @spec page_link(Socket.assigns()) :: Rendered.t()
+  attr :options, :map, required: true
+  attr :route, :any, required: true, doc: "A function actually..."
+  
   defp page_link(assigns) do
     options = assigns.options
     assigns = assign(assigns, current?: assigns.page == options.page)
