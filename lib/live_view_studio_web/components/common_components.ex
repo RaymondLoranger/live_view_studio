@@ -194,7 +194,8 @@ defmodule LiveView.StudioWeb.CommonComponents do
 
   attr :options, :map, required: true
   attr :route, :any, required: true, doc: "A function actually..."
-  
+  attr :page, :integer, required: true
+
   defp page_link(assigns) do
     options = assigns.options
     assigns = assign(assigns, current?: assigns.page == options.page)
