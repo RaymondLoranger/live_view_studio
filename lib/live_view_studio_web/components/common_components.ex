@@ -31,11 +31,10 @@ defmodule LiveView.StudioWeb.CommonComponents do
 
   def page_table_wrapper(assigns) do
     ~H"""
-    <div
-      id="page-table-wrapper"
-      class="border-cool-gray-300 mb-4 inline-block min-w-full overflow-hidden rounded-lg border-b align-middle shadow"
-    >
-      <%= render_slot(@inner_block) %>
+    <div id="page-table-wrapper" class="overflow-hidden">
+      <div class="mb-4 overflow-auto rounded-lg">
+        <%= render_slot(@inner_block) %>
+      </div>
     </div>
     """
   end
@@ -89,7 +88,7 @@ defmodule LiveView.StudioWeb.CommonComponents do
 
   def pagination(assigns) do
     ~H"""
-    <div class="mx-auto max-w-6xl bg-indigo-50 py-8 text-center text-lg">
+    <div class="mx-auto max-w-4xl bg-indigo-200 py-8 text-center text-lg">
       <div class="inline-flex shadow-sm">
         <.previous_page_link
           :if={@options.page > 1}
@@ -147,7 +146,9 @@ defmodule LiveView.StudioWeb.CommonComponents do
     """
   end
 
-  @spec previous_page_link(Socket.assigns()) :: Rendered.t()
+  attr :options, :map, required: true
+  attr :route, :any, required: true, doc: "A function actually..."
+
   defp previous_page_link(assigns) do
     options = assigns.options
     assigns = assign(assigns, :options, update_in(options.page, &(&1 - 1)))
@@ -156,8 +157,8 @@ defmodule LiveView.StudioWeb.CommonComponents do
     <.link
       patch={@route.(@options)}
       class={[
-        "text-base font-medium items-center px-3 py-2 border border-l-0 border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
-        "bg-white text-indigo-700 rounded-l-md !border-l",
+        "text-base font-medium px-3 py-2 border border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
+        "bg-white text-indigo-700 rounded-l-md",
         "focus:bg-cool-gray-400 focus:outline-none"
       ]}
     >
@@ -166,7 +167,9 @@ defmodule LiveView.StudioWeb.CommonComponents do
     """
   end
 
-  @spec next_page_link(Socket.assigns()) :: Rendered.t()
+  attr :options, :map, required: true
+  attr :route, :any, required: true, doc: "A function actually..."
+
   defp next_page_link(assigns) do
     options = assigns.options
     assigns = assign(assigns, :options, update_in(options.page, &(&1 + 1)))
@@ -175,7 +178,7 @@ defmodule LiveView.StudioWeb.CommonComponents do
     <.link
       patch={@route.(@options)}
       class={[
-        "text-base font-medium items-center px-3 py-2 border border-l-0 border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
+        "text-base font-medium px-3 py-2 border border-l-0 border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
         "bg-white text-indigo-700 rounded-r-md",
         "focus:bg-cool-gray-400 focus:outline-none"
       ]}
@@ -195,9 +198,9 @@ defmodule LiveView.StudioWeb.CommonComponents do
     <.link
       patch={@route.(@options)}
       class={[
-        "text-base font-medium items-center px-3 py-2 border border-l-0 border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
+        "text-base font-medium px-3 py-2 border border-l-0 border-cool-gray-400 leading-5 no-underline hover:bg-cool-gray-300",
         @current? && "bg-indigo-700 text-white hover:text-black",
-        !@current? && "bg-cool-gray-100 text-cool-gray-900",
+        !@current? && "bg-cool-gray-100 text-cool-gray-950",
         "focus:bg-cool-gray-400 focus:outline-none"
       ]}
     >

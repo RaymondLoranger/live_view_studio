@@ -19,9 +19,9 @@ defmodule LiveView.StudioWeb.DonationsComponents do
       </:subtitle>
     </.header>
 
-    <div id={@id} class="mx-auto max-w-4xl">
+    <section id={@id} class="mx-auto max-w-4xl">
       <%= render_slot(@inner_block) %>
-    </div>
+    </section>
     """
   end
 
@@ -64,7 +64,7 @@ defmodule LiveView.StudioWeb.DonationsComponents do
       class={[
         "rounded-full px-4 py-2 text-lg font-medium leading-5",
         "stale:bg-red-200 stale:text-red-800",
-        "fresh:bg-green-200 fresh:text-green-800"
+        "fresh:bg-green-200 fresh:text-green-700"
       ]}
     >
       <%= @donation.days_until_expires %>
